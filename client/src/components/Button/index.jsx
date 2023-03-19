@@ -1,9 +1,6 @@
-import React from 'react'
+import React from "react";
+import * as Styles from "./styles";
 
-const Button = () => {
-  return (
-    <div>Buttons</div>
-  )
-}
+const Button = ({ name }) => <Styles.Button>{name} </Styles.Button>;
 
-export default Button
+export default Button;
