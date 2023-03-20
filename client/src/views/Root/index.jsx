@@ -1,8 +1,8 @@
 import React from "react";
-import { Routes } from "react-router-dom";
+import { AuthenticatedApp, UnAuthenticatedApp } from "views";
 
 const Root = () => {
-  return <Routes></Routes>;
+  return false ? <AuthenticatedApp /> : <UnAuthenticatedApp />;
 };
 
 export default Root;
