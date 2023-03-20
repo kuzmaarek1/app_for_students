@@ -34,7 +34,7 @@ export const Button = styled.button`
       color === "red" ? theme.colors.red : theme.colors.blue};
     transition-property: all;
     transition-timing-function: ease-in;
-    transition-duration: 500ms;
+    transition-duration: 300ms;
   }
   &:hover {
     color: #fff;
