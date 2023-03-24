@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
-  margin: 50px;
   width: 90vw;
+  margin: 10px;
   height: 50px;
   position: relative;
 `;
@@ -19,13 +19,24 @@ export const Input = styled.input`
   border: none;
   outline: none;
   &:focus {
-    border: ${({ theme }) => `1.5px solid ${theme.colors.darkGrey}`};
+    border: ${({ theme, error }) =>
+      error
+        ? `1.5px solid ${theme.colors.red}`
+        : `1.5px solid ${theme.colors.darkGrey}`};
   }
+  ${({ empty }) =>
+    !empty &&
+    css`
+      border: ${({ theme, error }) =>
+        error
+          ? `1.5px solid ${theme.colors.red}`
+          : `1.5px solid ${theme.colors.darkGrey}`};
+    `}
 `;
 
 export const Label = styled.label`
   position: absolute;
-  width: 100px;
+  width: ${({ big }) => (big ? "150px" : "100px")};
   top: 50%;
   left: 5%;
   right: auto;
@@ -36,14 +47,38 @@ export const Label = styled.label`
   transition-duration: 300ms;
   font-size: 15px;
   input:focus ~ && {
-    transform: translate(-30%, -38px) scale(0.9);
+    transform: translate(-30px, -38px) scale(0.9);
     font-size: 12px;
     padding: 5px;
     padding-left: 6px;
     letter-spacing: 0.05em;
     color: white;
-    background-color: ${({ theme }) => theme.colors.darkGrey};
-    border-right: ${({ theme }) => `1.5px solid ${theme.colors.darkGrey}`};
-    border-left: ${({ theme }) => `1.5px solid ${theme.colors.darkGrey}`};
+    background-color: ${({ theme, error }) =>
+      error ? theme.colors.red : theme.colors.darkGrey};
   }
+
+  ${({ error, empty, theme }) => {
+    let backgroundColor = error ? theme.colors.red : theme.colors.darkGrey;
+    if (!empty)
+      return css`
+        transform: translate(-30px, -38px) scale(0.9);
+        font-size: 12px;
+        padding: 5px;
+        padding-left: 6px;
+        letter-spacing: 0.05em;
+        color: white;
+        background-color: ${backgroundColor};
+      `;
+  }}
+`;
+
+export const Span = styled.span`
+  position: absolute;
+  bottom: -15px;
+  display: flex;
+  font-size: 11px;
+  width: 100%;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.red};
+  justify-content: flex-end;
 `;
