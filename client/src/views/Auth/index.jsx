@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { LoginForm, RegisterForm } from "constans";
+import { loginForm, registerForm, defaultValues } from "constans";
 import { Button, Field } from "components";
 import * as Styles from "./styles";
 
@@ -13,15 +13,15 @@ const Auth = () => {
     formState: { errors },
   } = useForm();
   const [isLogin, setIsLogin] = useState(true);
-  const [dataform, setFormData] = useState(LoginForm);
+  const [dataform, setFormData] = useState(loginForm);
 
   const switchMode = () => {
-    reset();
+    reset(defaultValues);
     setIsLogin((prevIsLogin) => !prevIsLogin);
   };
 
   useEffect(() => {
-    setFormData(isLogin ? LoginForm : RegisterForm);
+    setFormData(isLogin ? loginForm : registerForm);
   }, [isLogin]);
 
   return (
@@ -30,7 +30,9 @@ const Auth = () => {
         <Styles.Header isLogin={isLogin}>
           {isLogin ? "Log In" : "Sign Up"}
         </Styles.Header>
-        <Styles.Form onSubmit={(e) => console.log(e)}>
+        <Styles.Form
+          onSubmit={handleSubmit((register) => console.log(register))}
+        >
           {dataform.map((props, index) => (
             <Field
               key={index}
@@ -38,6 +40,7 @@ const Auth = () => {
               watch={watch}
               errors={!!errors[props.name]}
               register={register}
+              required={true}
               validate={
                 props.name === "re_password" ? watch("password") : false
               }

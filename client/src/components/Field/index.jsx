@@ -17,9 +17,25 @@ const Field = ({ type, name, watch, errors, register, required, validate }) => {
         empty={!watch(name)}
         error={errors}
       />
-      <Styles.Label htmlFor={name} empty={!watch(name)} error={errors}>
-        {name}
+      <Styles.Label
+        htmlFor={name}
+        empty={!watch(name)}
+        error={errors}
+        big={name === "re_password"}
+      >
+        {name === "re_password"
+          ? "Repeat password"
+          : `${name[0].toUpperCase()}${name.slice(1).replace("_", " ")}`}
       </Styles.Label>
+      {errors && (
+        <Styles.Span>
+          {name === "re_password"
+            ? "The passwords must be identical"
+            : `${name[0].toUpperCase()}${name
+                .slice(1)
+                .replace("_", " ")} is required`}
+        </Styles.Span>
+      )}
     </Styles.Wrapper>
   );
 };
