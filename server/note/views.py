@@ -8,9 +8,7 @@ from subject.models import Subject
 @api_view(['GET'])
 def get_notes(request, subject_id):
     subject = Subject.objects.filter(id=subject_id).first()
-    print(subject)
     notes =  Note.objects.filter(subject=subject).order_by('-id')
-    print(notes)
     serializer = NoteSerializer(notes, many=True)
     return Response({"results":serializer.data})
 

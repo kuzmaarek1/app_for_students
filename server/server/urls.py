@@ -23,5 +23,6 @@ urlpatterns = [
     path('api/', include('djoser.urls.authtoken')),
     path('api/', include('subject.urls')),
     path('api/', include('note.urls')),
-    path('api/', include('deadline.urls'))
+    path('api/', include('deadline.urls')),
+    path('api/', include('todolist.urls'))
 ]

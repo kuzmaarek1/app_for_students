@@ -9,8 +9,7 @@ class TodolistSerializer(serializers.ModelSerializer):
         )
         fields=(
             'id',
-            'name',
-            'isDone',
-            'subject',
+            'description',
+            'isDoned',
             'created_by'
         )
