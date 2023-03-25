@@ -6,6 +6,6 @@ urlpatterns = [
     path('subjects/subject/',get_subject, name='get_subject'),
     path('subjects/search/', search_subjects, name='search_subjects'),
     path('subjects/create/', create_subject, name='create_subject'),
-    #path('subjects/delete/', delete_subject, name='delete_subjects'),
-    #path('subjects/update/', update_subject, name='update_subjects'),
+    #path('subjects/delete/', delete_subject, name='delete_subject'),
+    #path('subjects/update/', update_subject, name='update_subject'),
 ]
