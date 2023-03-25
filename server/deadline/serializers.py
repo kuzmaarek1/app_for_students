@@ -12,6 +12,5 @@ class DeadlineSerializer(serializers.ModelSerializer):
             'description',
             'exam',
             'date',
-            'subject',
             'created_by'
         )
