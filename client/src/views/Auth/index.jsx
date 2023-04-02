@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { loginForm, registerForm, defaultValues } from "constans";
+import { loginForm, registerForm, defaultAuthValues } from "constans";
 import { useAuth } from "hooks/useAuth";
 import { Button, Field } from "components";
 import * as Styles from "./styles";
@@ -18,7 +18,7 @@ const Auth = () => {
   const [dataform, setFormData] = useState(loginForm);
 
   const switchMode = () => {
-    reset(defaultValues);
+    reset(defaultAuthValues);
     setIsLogin((prevIsLogin) => !prevIsLogin);
   };
 
@@ -37,7 +37,6 @@ const Auth = () => {
             isLogin
               ? handleSubmit(auth.handleSiginIn)
               : handleSubmit(async (register) => {
-                  console.log(register);
                   if ("first_name" in register)
                     await auth.handleSignUp(register);
                   reset();

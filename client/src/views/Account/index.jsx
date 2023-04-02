@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useAuth } from "hooks/useAuth";
 import { useGetUserQuery } from "reducers/authApiSlice";
-import { Button, Loader } from "components";
+import { Button, Loader, ModalForm } from "components";
 import * as Styles from "./styles";
 
 const Account = () => {
@@ -31,11 +31,18 @@ const Account = () => {
       )}
       <Styles.ButtonWrapper small={currentSubject?.id ? true : false}>
         {!currentSubject?.id && (
-          <Button
-            height="40px"
-            onClick={() => setModalIsOpen(true)}
-            name="Add Subject"
-          />
+          <>
+            <Button
+              height="40px"
+              onClick={() => setModalIsOpen(true)}
+              name="Add Subject"
+            />
+            <ModalForm
+              header="Subject"
+              modalIsOpen={modalIsOpen}
+              closeModal={() => setModalIsOpen(false)}
+            />
+          </>
         )}
         <Button
           onClick={() => authHook.handleLogOut()}

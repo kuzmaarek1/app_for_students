@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
+  z-index: 0;
   width: ${({ width }) => (width ? width : "200px")};
   height: ${({ height }) => (height ? height : "50px")};
   display: flex;
