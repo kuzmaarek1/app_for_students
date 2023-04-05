@@ -26,7 +26,7 @@ export const subjectsApiSlice = apiSlice.injectEndpoints({
     }),
     searchSubject: builder.query({
       query: (name) => ({
-        url: `subjects/search/?search=${name}`,
+        url: `api/subjects/search/?search=${name}`,
         method: "GET",
       }),
       async onQueryStarted({ name }, { dispatch, queryFulfilled }) {
@@ -57,8 +57,8 @@ export const subjectsApiSlice = apiSlice.injectEndpoints({
         url: `/api/subjects/delete/${id}/`,
         method: "PUT",
       }),
+      invalidatesTags: ["Subject", "Subjects"],
     }),
-    invalidatesTags: ["Subject", "Subjects"],
   }),
 });
 
