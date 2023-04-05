@@ -16,7 +16,7 @@ export const subjectsApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ["Subjects", "Auth"],
     }),
-    addSubject: builder.query({
+    createSubject: builder.mutation({
       query: (data) => ({
         url: `/api/subjects/create/`,
         method: "POST",
@@ -24,7 +24,7 @@ export const subjectsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Subjects"],
     }),
-    searchTeam: builder.query({
+    searchSubject: builder.query({
       query: (name) => ({
         url: `subjects/search/?search=${name}`,
         method: "GET",
@@ -44,7 +44,7 @@ export const subjectsApiSlice = apiSlice.injectEndpoints({
         } catch {}
       },
     }),
-    editTeam: builder.mutation({
+    editSubject: builder.mutation({
       query: ({ id, data }) => ({
         url: `/api/subjects/update/${id}/`,
         method: "PUT",
@@ -52,8 +52,8 @@ export const subjectsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Subjects"],
     }),
-    deleteTeam: builder.mutation({
-      query: ({ id, teams }) => ({
+    deleteSubject: builder.mutation({
+      query: ({ id }) => ({
         url: `/api/subjects/delete/${id}/`,
         method: "PUT",
       }),
@@ -67,6 +67,6 @@ export const {
   useGetSubjectsQuery,
   useSearchSubjectQuery,
   useEditSubjectMutation,
-  useAddSubjectMutation,
+  useCreateSubjectMutation,
   useDeleteSubjectMutation,
 } = subjectsApiSlice;

@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('description', models.CharField(max_length=10000)),
                 ('ects', models.IntegerField()),
-                ('created_by', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='create_team', to=settings.AUTH_USER_MODEL)),
+                ('created_by', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='create_subject', to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

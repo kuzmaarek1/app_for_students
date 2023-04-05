@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { authApiSlice } from "reducers/authApiSlice";
-import { subjectsApiSlice } from "reducers/subjectApiSlice";
+import { subjectsApiSlice } from "reducers/subjectsApiSlice";
 import { isAnyOf } from "@reduxjs/toolkit";
 
 const subjectReducer = createSlice({
@@ -12,11 +12,6 @@ const subjectReducer = createSlice({
     setCurrentSubject(state, action) {
       state.currentSubject = action.payload.data;
     },
-    editSubjectSuccess(state, action) {
-      if (state.currentSubject.id === action.payload.data.id) {
-        state.currentSubject = action.payload.data.data;
-      }
-    },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -25,18 +20,16 @@ const subjectReducer = createSlice({
         state.currentSubject = payload?.id ? payload : null;
       }
     );
-    /*
     builder.addMatcher(
-        subjectsApiSlice.endpoints.editSubject.matchFulfilled,
-        (state, { payload }) => {
-             if (state.currentSubject.id === payload.id) {
-                  state.currentSubject = payload;
-             }
+      subjectsApiSlice.endpoints.editSubject.matchFulfilled,
+      (state, { payload }) => {
+        if (state.currentSubject.id === payload.id) {
+          state.currentSubject = payload;
         }
-      );
-    */
+      }
+    );
     builder.addMatcher(
-      subjectsApiSlice.endpoints.addSubject.matchFulfilled,
+      subjectsApiSlice.endpoints.createSubject.matchFulfilled,
       (state, { payload }) => {
         state.currentSubject = payload;
       }
@@ -55,6 +48,6 @@ const subjectReducer = createSlice({
 
 const { actions, reducer } = subjectReducer;
 
-export const { setCurrentTeam } = actions;
+export const { setCurrentSubject } = actions;
 
 export default reducer;

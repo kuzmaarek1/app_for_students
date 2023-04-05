@@ -14,7 +14,7 @@ import { Modal, Button, Field } from "components";
 import * as Styles from "./styles";
 
 //Subject, Deadline, Note, Todolist
-const ModalForm = ({ header, modalIsOpen, closeModal }) => {
+const ModalForm = ({ header, hook, modalIsOpen, closeModal }) => {
   const formData =
     header === "Subject"
       ? modalSubjectForm
@@ -45,7 +45,14 @@ const ModalForm = ({ header, modalIsOpen, closeModal }) => {
   return (
     <>
       <Styles.Header>Add {header}</Styles.Header>
-      <Styles.Form onSubmit={handleSubmit(() => {})}>
+      <Styles.Form
+        onSubmit={handleSubmit(async (register) => {
+          console.log(register);
+          await hook.handleAdd(register);
+          closeModal();
+          reset();
+        })}
+      >
         {formData.map((props, index) => (
           <Field
             {...props}
@@ -55,10 +62,10 @@ const ModalForm = ({ header, modalIsOpen, closeModal }) => {
             register={register}
           />
         ))}
+        <Styles.ButtonWrapper>
+          <Button height="40px" name="Submit" />
+        </Styles.ButtonWrapper>
       </Styles.Form>
-      <Styles.ButtonWrapper>
-        <Button height="40px" name="Submit" />
-      </Styles.ButtonWrapper>
     </>
   );
 };

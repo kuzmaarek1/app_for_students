@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { subjectsApiSlice } from "reducers/subjectApiSlice";
+import { subjectsApiSlice } from "reducers/subjectsApiSlice";
 import * as Styles from "./styles";
 
 const Navbar = () => {

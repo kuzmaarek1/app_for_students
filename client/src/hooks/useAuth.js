@@ -1,6 +1,5 @@
 import { apiSlice } from "api/apiSlice";
 import { useDispatch } from "react-redux";
-import { toast } from "react-hot-toast";
 import { useToast } from "hooks/useToast";
 import {
   useSignInMutation,
@@ -17,18 +16,21 @@ export const useAuth = () => {
 
   const handleSiginIn = async (formData) => {
     try {
-      console.log(formData);
       const data = await signIn(formData);
       if ("error" in data)
         if ("status" in data.error) throw new Error(String(data.error.status));
     } catch (e) {
-      toast.error("Login Failed:\n Your username or password is incorrect");
+      toastHook.handleDisplayBanner(
+        "error",
+        null,
+        null,
+        "Login Failed:\n Your username or password is incorrect"
+      );
       console.log(e);
     }
   };
 
   const handleSignUp = async (formData) => {
-    console.log(formData);
     return await toastHook.handleDisplayBanner(
       signUp(formData),
       `Creating new user ${formData.username}`,

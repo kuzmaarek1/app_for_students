@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useAuth } from "hooks/useAuth";
+import { useSubjects } from "hooks/useSubjects";
 import { useGetUserQuery } from "reducers/authApiSlice";
 import { Button, Loader, ModalForm } from "components";
 import * as Styles from "./styles";
 
 const Account = () => {
   const authHook = useAuth();
+  const subject = useSubjects();
   const { currentSubject } = useSelector((state) => state.subject);
   const { data: auth, isLoading } = useGetUserQuery();
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -41,6 +43,7 @@ const Account = () => {
               header="Subject"
               modalIsOpen={modalIsOpen}
               closeModal={() => setModalIsOpen(false)}
+              hook={subject}
             />
           </>
         )}
