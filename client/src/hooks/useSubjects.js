@@ -8,14 +8,14 @@ import {
 } from "reducers/subjectsApiSlice";
 
 export const useSubjects = () => {
-  const toastHook = useToast();
+  const toast = useToast();
   const dispatch = useDispatch();
   const [createSubject] = useCreateSubjectMutation();
   const [deleteSubject] = useDeleteSubjectMutation();
   const [editSubject] = useEditSubjectMutation();
 
   const handleAdd = async (data) => {
-    return await toastHook.handleDisplayBanner(
+    return await toast.handleDisplayBanner(
       createSubject(data),
       `Adding subject ${data.name}`,
       `Added subject ${data.name}`
@@ -23,7 +23,7 @@ export const useSubjects = () => {
   };
 
   const handleEdit = async (id, data) => {
-    return await toastHook.handleDisplayBanner(
+    return await toast.handleDisplayBanner(
       editSubject({ id, data }),
       `Updating subject ${data.name}`,
       `Updated subject ${data.name}`
@@ -31,16 +31,16 @@ export const useSubjects = () => {
   };
 
   const handleDelete = async (subject) => {
-    return await toastHook.handleDisplayBanner(
-      deleteSubject({ subject }),
+    return await toast.handleDisplayBanner(
+      deleteSubject(subject),
       `Deleting subject ${subject.name}`,
       `Deleted subject ${subject.name}`
     );
   };
 
   const handleChangeSubject = (subject) => {
-    dispatch(setCurrentSubject({ subject }));
-    toastHook.handleDisplayBanner(
+    dispatch(setCurrentSubject(subject));
+    toast.handleDisplayBanner(
       `success`,
       null,
       `Changed subject ${subject.name}`
