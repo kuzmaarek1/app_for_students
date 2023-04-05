@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
+  z-index: 0;
   width: ${({ width }) => (width ? width : "200px")};
   height: ${({ height }) => (height ? height : "50px")};
   display: flex;
@@ -13,7 +14,7 @@ export const Button = styled.button`
     color === "red" ? theme.colors.red : theme.colors.blue};
   background: ${({ color, theme }) =>
     color === "red" ? theme.colors.lightRed : theme.colors.lightBlue};
-  font-size: 18px;
+  font-size: 15px;
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.1em;

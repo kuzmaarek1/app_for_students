@@ -1,11 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Subjects, Notes, Deadlines, Todolits, Account } from "views";
 
 const AuthenticatedApp = () => {
+  const { currentSubject } = useSelector((state) => state.subject);
   return (
     <Routes>
-      {true && (
+      {currentSubject && (
         <>
           <Route path="/subjects" element={<Subjects />} />
           <Route path="/notes" element={<Notes />} />

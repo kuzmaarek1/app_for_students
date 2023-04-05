@@ -28,4 +28,4 @@ def create_subject(request):
     serializer = SubjectSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save(created_by=request.user)
-    return Response({'message':'Create'})
+    return Response(serializer.data)

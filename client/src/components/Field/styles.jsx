@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 export const Wrapper = styled.div`
   width: 90vw;
   margin: 10px;
+  margin-bottom: ${({ description }) => (description ? "60px" : "10px")};
   height: 50px;
   position: relative;
 `;
@@ -10,8 +11,23 @@ export const Wrapper = styled.div`
 export const Input = styled.input`
   position: absolute;
   width: 100%;
-  height: 100%;
-  padding-left: 5%;
+  height: ${({ description }) => (description ? "100px" : "50px")};
+  ${({ description }) =>
+    description &&
+    css`
+      resize: none;
+      padding-top: 15px;
+    `}
+
+  ${({ exam }) =>
+    exam &&
+    css`
+      margin-top: 20px;
+      width: 100%;
+      height: 20px;
+    `}
+  padding-left: 2.5%;
+  padding-right: 2.5%;
   color: ${({ theme }) => theme.colors.darkGrey};
   background-color: rgba(112, 112, 112, 0.1);
   font-family: "Montserrat", sans-serif;
@@ -32,6 +48,9 @@ export const Input = styled.input`
           ? `1.5px solid ${theme.colors.red}`
           : `1.5px solid ${theme.colors.darkGrey}`};
     `}
+  &::placeholder {
+    color: transparent;
+  }
 `;
 
 export const Label = styled.label`
@@ -46,7 +65,28 @@ export const Label = styled.label`
   transition-timing-function: ease-in;
   transition-duration: 300ms;
   font-size: 15px;
-  input:focus ~ && {
+  ${({ date, exam }) =>
+    (date || exam) &&
+    css`
+      transform: translate(-30px, -38px) scale(0.9);
+      font-size: 12px;
+      padding: 5px;
+      padding-left: 6px;
+      letter-spacing: 0.05em;
+      color: white;
+      background-color: ${({ theme, error }) =>
+        error ? theme.colors.red : theme.colors.darkGrey};
+    `}
+  ${({ exam }) =>
+    exam &&
+    css`
+      top: 30px;
+      right: 0;
+      left: 75px;
+      margin: auto;
+    `}
+  input:focus ~ &&,
+  textarea:focus ~ && {
     transform: translate(-30px, -38px) scale(0.9);
     font-size: 12px;
     padding: 5px;

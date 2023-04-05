@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { loginForm, registerForm, defaultValues } from "constans";
+import { loginForm, registerForm, defaultAuthValues } from "constans";
+import { useAuth } from "hooks/useAuth";
 import { Button, Field } from "components";
 import * as Styles from "./styles";
 
@@ -12,11 +13,12 @@ const Auth = () => {
     reset,
     formState: { errors },
   } = useForm();
+  const auth = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [dataform, setFormData] = useState(loginForm);
 
   const switchMode = () => {
-    reset(defaultValues);
+    reset(defaultAuthValues);
     setIsLogin((prevIsLogin) => !prevIsLogin);
   };
 
@@ -31,7 +33,16 @@ const Auth = () => {
           {isLogin ? "Log In" : "Sign Up"}
         </Styles.Header>
         <Styles.Form
-          onSubmit={handleSubmit((register) => console.log(register))}
+          onSubmit={
+            isLogin
+              ? handleSubmit(auth.handleSiginIn)
+              : handleSubmit(async (register) => {
+                  if ("first_name" in register)
+                    await auth.handleSignUp(register);
+                  reset();
+                  setIsLogin(true);
+                })
+          }
         >
           {dataform.map((props, index) => (
             <Field
@@ -47,13 +58,18 @@ const Auth = () => {
             />
           ))}
           <Styles.ButtonWrapper>
-            <Button width="400px" name={isLogin ? " Log In" : "Sign Up"} />
+            <Button
+              width="300px"
+              height="40px"
+              name={isLogin ? " Log In" : "Sign Up"}
+            />
           </Styles.ButtonWrapper>
         </Styles.Form>
         <Styles.ButtonWrapper>
           <Button
             color="red"
-            width="500px"
+            width="400px"
+            height="40px"
             onClick={switchMode}
             name={
               isLogin

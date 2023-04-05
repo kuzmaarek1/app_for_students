@@ -11,10 +11,54 @@ export const registerForm = [
   { type: "password", name: "re_password" },
 ];
 
-export const defaultValues = {
+export const defaultAuthValues = {
   username: "",
   password: "",
   first_name: "",
   last_name: "",
   re_password: "",
+};
+
+export const modalSubjectForm = [
+  { type: "text", name: "name" },
+  { type: "text", name: "description" },
+  { type: "number", name: "ects" },
+];
+
+export const modalNoteForm = [
+  { type: "number", name: "number" },
+  { type: "text", name: "topic" },
+  { type: "text", name: "description" },
+  { type: "date", name: "date" },
+];
+
+export const modalDeadlineForm = [
+  { type: "text", name: "description" },
+  { type: "checkbox", name: "exam" },
+  { type: "date", name: "date" },
+];
+
+export const modalTodoListForm = [{ type: "text", name: "description" }];
+
+export const defaultSubjectValues = {
+  name: "",
+  description: "",
+  ects: "",
+};
+
+export const defaultNoteValues = {
+  name: "",
+  topic: "",
+  description: "",
+  date: "",
+};
+
+export const defaultDeadlineValues = {
+  description: "",
+  exam: "",
+  date: "",
+};
+
+export const defaultTodoList = {
+  description: "",
 };
