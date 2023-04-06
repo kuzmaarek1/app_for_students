@@ -4,9 +4,9 @@ import * as Styles from "./styles";
 
 const HeaderList = ({ header, register, watch, setModalIsOpenFormAdd }) => {
   return (
-    <Styles.Wrapper isInput={header !== "Deadline"}>
+    <Styles.Wrapper isInput={header !== "Deadline" && header !== "Todolist"}>
       <Styles.Header>{header}s</Styles.Header>
-      {header !== "Deadline" && (
+      {header !== "Deadline" && header !== "Todolist" && (
         <Styles.InputWrapper>
           <Field
             name={`${header.toLowerCase()}-search`}
@@ -23,7 +23,9 @@ const HeaderList = ({ header, register, watch, setModalIsOpenFormAdd }) => {
           />
         </Styles.InputWrapper>
       )}
-      <Styles.ButtonWrapper isInput={header !== "Deadline"}>
+      <Styles.ButtonWrapper
+        isInput={header !== "Deadline" && header !== "Todolist"}
+      >
         <Button
           width="65%"
           height="7vh"

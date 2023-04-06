@@ -49,7 +49,7 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
       ? ["number", "topic", "date"]
       : header === "Deadline"
       ? ["description", "exam", "date"]
-      : [];
+      : ["description"];
 
   const data = watch(`${header.toLowerCase()}-search`) ? dataSearch : dataGet;
 
