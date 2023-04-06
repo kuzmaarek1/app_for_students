@@ -29,20 +29,6 @@ export const subjectsApiSlice = apiSlice.injectEndpoints({
         url: `api/subjects/search/?search=${name}`,
         method: "GET",
       }),
-      async onQueryStarted({ name }, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          if (name !== "") {
-            dispatch(
-              subjectsApiSlice.util.updateQueryData(
-                "getSubjects",
-                undefined,
-                (draft) => data
-              )
-            );
-          }
-        } catch {}
-      },
     }),
     editSubject: builder.mutation({
       query: ({ id, data }) => ({

@@ -9,7 +9,8 @@ from subject.models import Subject
 def get_deadlines(request, subject_id):
     subject = Subject.objects.filter(id=subject_id).first()
     deadlines =  Deadline.objects.filter(subject=subject).order_by('-date')
-    serializer = DeadlineSerializer( deadlines, many=True)
+    serializer = DeadlineSerializer(deadlines, many=True)
+    print(serializer.data)
     return Response({"results":serializer.data})
 
 @api_view(['POST'])

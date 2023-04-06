@@ -20,22 +20,22 @@ export const defaultAuthValues = {
 };
 
 export const modalSubjectForm = [
-  { type: "text", name: "name" },
-  { type: "text", name: "description" },
-  { type: "number", name: "ects" },
+  { type: "text", name: "name", required: "true" },
+  { type: "text", name: "description", required: "true" },
+  { type: "number", name: "ects", required: "true" },
 ];
 
 export const modalNoteForm = [
-  { type: "number", name: "number" },
-  { type: "text", name: "topic" },
-  { type: "text", name: "description" },
-  { type: "date", name: "date" },
+  { type: "number", name: "number", required: "true" },
+  { type: "text", name: "topic", required: "true" },
+  { type: "text", name: "description", required: "true" },
+  { type: "date", name: "date", required: "true" },
 ];
 
 export const modalDeadlineForm = [
-  { type: "text", name: "description" },
+  { type: "text", name: "description", required: "true" },
   { type: "checkbox", name: "exam" },
-  { type: "date", name: "date" },
+  { type: "date", name: "date", required: "true" },
 ];
 
 export const modalTodoListForm = [{ type: "text", name: "description" }];
@@ -47,7 +47,7 @@ export const defaultSubjectValues = {
 };
 
 export const defaultNoteValues = {
-  name: "",
+  number: "",
   topic: "",
   description: "",
   date: "",
@@ -55,7 +55,7 @@ export const defaultNoteValues = {
 
 export const defaultDeadlineValues = {
   description: "",
-  exam: "",
+  exam: false,
   date: "",
 };
 

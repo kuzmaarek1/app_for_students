@@ -1,9 +1,10 @@
 import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
-  width: 90vw;
+  width: ${({ headerList }) => (headerList ? "100%" : "90vw")};
   margin: 10px;
-  margin-bottom: ${({ description }) => (description ? "60px" : "10px")};
+  margin-bottom: ${({ description, note }) =>
+    description ? (note ? "340px" : "60px") : "10px"};
   height: 50px;
   position: relative;
 `;
@@ -11,7 +12,8 @@ export const Wrapper = styled.div`
 export const Input = styled.input`
   position: absolute;
   width: 100%;
-  height: ${({ description }) => (description ? "100px" : "50px")};
+  height: ${({ description, note }) =>
+    description ? (note ? "380px" : "100px") : "50px"};
   ${({ description }) =>
     description &&
     css`
@@ -55,7 +57,8 @@ export const Input = styled.input`
 
 export const Label = styled.label`
   position: absolute;
-  width: ${({ big }) => (big ? "150px" : "100px")};
+  width: ${({ big, headerList }) =>
+    big ? "150px" : headerList ? "300px" : "100px"};
   top: 50%;
   left: 5%;
   right: auto;
@@ -114,7 +117,8 @@ export const Label = styled.label`
 
 export const Span = styled.span`
   position: absolute;
-  bottom: -15px;
+  bottom: ${({ description, note }) =>
+    description ? (note ? "-345px" : "-63px") : "-15px"};
   display: flex;
   font-size: 11px;
   width: 100%;

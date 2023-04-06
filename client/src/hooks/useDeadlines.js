@@ -3,7 +3,7 @@ import {
   useEditDeadlineMutation,
   useCreateDeadlineMutation,
   useDeleteDeadlineMutation,
-} from "reducers/deadlineApiSlice";
+} from "reducers/deadlinesApiSlice";
 
 export const useDeadlines = () => {
   const toast = useToast();

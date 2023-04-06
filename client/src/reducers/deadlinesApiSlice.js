@@ -4,14 +4,14 @@ export const deadlinesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getDeadlines: builder.query({
       query: (subject) => ({
-        url: `/api/deadlines/${subject}`,
+        url: `/api/deadlines/${subject}/`,
         method: "GET",
       }),
       providesTags: ["Deadlines", "Auth"],
     }),
     createDeadline: builder.mutation({
       query: ({ data, subject }) => ({
-        url: `/api/deadlines/create/${subject}`,
+        url: `/api/deadlines/create/${subject}/`,
         method: "POST",
         body: data,
       }),
@@ -19,7 +19,7 @@ export const deadlinesApiSlice = apiSlice.injectEndpoints({
     }),
     editDeadline: builder.mutation({
       query: ({ id, data, subject }) => ({
-        url: `/api/deadlines/update/${subject}/${id}`,
+        url: `/api/deadlines/update/${subject}/${id}/`,
         method: "PUT",
         body: data,
       }),
@@ -27,7 +27,7 @@ export const deadlinesApiSlice = apiSlice.injectEndpoints({
     }),
     deleteDeadline: builder.mutation({
       query: ({ id, subject }) => ({
-        url: `/api/deadlines/delete/${subject}/${id}`,
+        url: `/api/deadlines/delete/${subject}/${id}/`,
         method: "PUT",
       }),
       invalidatesTags: ["Deadlines"],
