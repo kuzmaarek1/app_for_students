@@ -10,7 +10,7 @@ const subjectReducer = createSlice({
   },
   reducers: {
     setCurrentSubject(state, action) {
-      state.currentSubject = action.payload.data;
+      state.currentSubject = action.payload;
     },
   },
   extraReducers: (builder) => {
