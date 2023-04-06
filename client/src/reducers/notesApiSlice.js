@@ -22,20 +22,6 @@ export const notesApiSlice = apiSlice.injectEndpoints({
         url: `/api/notes/search/${subject}/?search=${name}`,
         method: "GET",
       }),
-      async onQueryStarted({ name }, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          if (name !== "") {
-            dispatch(
-              notesApiSlice.util.updateQueryData(
-                "getNotes",
-                undefined,
-                (draft) => data
-              )
-            );
-          }
-        } catch {}
-      },
     }),
     editNote: builder.mutation({
       query: ({ id, data, subject }) => ({

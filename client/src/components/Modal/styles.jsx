@@ -25,12 +25,12 @@ export const ModalWrapper = styled(Modal)`
     if (props.isOpen)
       return css`
         animation-name: zoomIn;
-        animation-duration: 0.5s;
+        animation-duration: 0.75s;
       `;
     else
       return css`
         animation-name: zoomOut;
-        animation-duration: 0.5s;
+        animation-duration: 1.5s;
         opacity: 0;
       `;
   }}

@@ -12,9 +12,18 @@ import {
 } from "constans";
 import { Modal, Button, Field } from "components";
 import * as Styles from "./styles";
+import { useDispatch } from "react-redux";
 
 //Subject, Deadline, Note, Todolist
-const ModalForm = ({ header, hook, modalIsOpen, closeModal }) => {
+const ModalForm = ({
+  header,
+  hook,
+  modalIsOpen,
+  closeModal,
+  subject,
+  resetSearch,
+}) => {
+  const dispatch = useDispatch();
   const formData =
     header === "Subject"
       ? modalSubjectForm
@@ -47,10 +56,10 @@ const ModalForm = ({ header, hook, modalIsOpen, closeModal }) => {
       <Styles.Header>Add {header}</Styles.Header>
       <Styles.Form
         onSubmit={handleSubmit(async (register) => {
-          console.log(register);
           await hook.handleAdd(register);
           closeModal();
           reset();
+          resetSearch && resetSearch(`${header.toLowerCase()}-search`);
         })}
       >
         {formData.map((props, index) => (

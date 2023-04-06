@@ -2,7 +2,7 @@ import React from "react";
 import { Field, Button } from "components";
 import * as Styles from "./styles";
 
-const HeaderList = ({ header, register, watch }) => {
+const HeaderList = ({ header, register, watch, setModalIsOpenFormAdd }) => {
   return (
     <Styles.Wrapper>
       <Styles.Header>{header}s</Styles.Header>
@@ -16,7 +16,12 @@ const HeaderList = ({ header, register, watch }) => {
         />
       </Styles.InputWrapper>
       <Styles.ButtonWrapper>
-        <Button width="65%" height="7vh" name={`Add ${header}`} />
+        <Button
+          width="65%"
+          height="7vh"
+          name={`Add ${header}`}
+          onClick={() => setModalIsOpenFormAdd(true)}
+        />
       </Styles.ButtonWrapper>
     </Styles.Wrapper>
   );
