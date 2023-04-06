@@ -47,6 +47,8 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
       ? ["name", "ects", ""]
       : header === "Note"
       ? ["number", "topic", "date"]
+      : header === "Deadline"
+      ? ["description", "exam", "date"]
       : [];
 
   const data = watch(`${header.toLowerCase()}-search`) ? dataSearch : dataGet;
@@ -54,7 +56,7 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
   const fetching = watch(`${header.toLowerCase()}-search`)
     ? fetchingSearch
     : fetchingData;
-
+  console.log(data);
   return (
     <Styles.Wrapper>
       <HeaderList
@@ -102,8 +104,11 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
                             key={`${row.id}-${key}`}
                             align="center"
                             onClick={() => console.log("click")}
+                            value={value}
                           >
-                            {value}
+                            <Styles.TBodyCellBolean value={value}>
+                              {String(value)}
+                            </Styles.TBodyCellBolean>
                           </Styles.TBodyCell>
                         )
                     )}

@@ -1,17 +1,24 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Wrapper = styled.header`
   display: grid;
-  grid-template-columns: minmax(0, 0.6fr) minmax(0, 1fr) minmax(0, 0.6fr);
+  grid-template-columns: ${({ isInput }) =>
+    isInput
+      ? "minmax(0, 0.6fr) minmax(0, 1fr) minmax(0, 0.6fr)"
+      : "minmax(0, 1fr) minmax(0, 1fr)"};
   align-items: center;
   height: 10vh;
   background-color: ${({ theme }) => theme.colors.lightGrey};
   width: 100%;
   border-bottom: 2px solid ${({ theme }) => theme.colors.grey};
   @media (max-width: 640px) {
-    height: 20vh;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
+    ${({ isInput }) =>
+      isInput &&
+      css`
+        height: 20vh;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+      `}
   }
 `;
 export const Header = styled.h1`
@@ -38,8 +45,25 @@ export const ButtonWrapper = styled.div`
   justify-content: flex-end;
   align-items: center;
   padding-right: 10px;
+  ${({ isInput }) =>
+    !isInput &&
+    css`
+      align-items: flex-end;
+      margin-left: 50%;
+      width: 50%;
+    `}
   @media (max-width: 640px) {
-    grid-row: 1 / 2;
-    grid-column: 2 / 3;
+    ${({ isInput }) =>
+      !isInput &&
+      css`
+        margin-left: 10%;
+        width: 90%;
+      `}
+    ${({ isInput }) =>
+      isInput &&
+      css`
+        grid-row: 1 / 2;
+        grid-column: 2 / 3;
+      `}
   }
 `;

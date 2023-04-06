@@ -56,6 +56,7 @@ const ModalForm = ({
       <Styles.Header>Add {header}</Styles.Header>
       <Styles.Form
         onSubmit={handleSubmit(async (register) => {
+          console.log(register);
           await hook.handleAdd(register, subject?.id);
           closeModal();
           reset();
@@ -70,7 +71,6 @@ const ModalForm = ({
             errors={!!errors[props.name]}
             register={register}
             header={header}
-            required={true}
           />
         ))}
         <Styles.ButtonWrapper>

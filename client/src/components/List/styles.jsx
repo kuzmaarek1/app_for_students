@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Table from "@mui/material/Table";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
@@ -46,6 +46,29 @@ export const TBody = styled(TableBody)`
 export const TBodyCell = styled(TableCell)`
   cursor: pointer;
   margin: auto;
+  ${({ value }) =>
+    (value === true || value === false) &&
+    css`
+      width: 150px;
+    `};
+`;
+
+export const TBodyCellBolean = styled.div`
+  ${({ value }) =>
+    (value === true || value === false) &&
+    css`
+      width: 100%;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: ${({ value, theme }) =>
+        `1px solid ${value === true ? theme.colors.blue : theme.colors.red}`};
+      background-color: ${({ value, theme }) =>
+        `${value === true ? theme.colors.lightBlue : theme.colors.lightRed}`};
+      color: ${({ value, theme }) =>
+        `${value === true ? theme.colors.blue : theme.colors.red}`};
+    `};
 `;
 
 export const ButtonWrapper = styled.div`
