@@ -2,11 +2,19 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import Paper from "@mui/material/Paper";
-import { Button, HeaderList, ModalForm, Loader } from "components";
+import {
+  Button,
+  HeaderList,
+  ModalForm,
+  Loader,
+  ModalDetails,
+} from "components";
 import * as Styles from "./styles";
 
 const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
   const { register, watch, resetField } = useForm();
+  const [details, setDetails] = useState({});
+  const [modalIsOpenDetails, setModalIsOpenDetails] = useState(false);
   const [modalIsOpenFormAdd, setModalIsOpenFormAdd] = useState(false);
   const { currentSubject } = useSelector((state) => state.subject);
   const dispatch = useDispatch();
@@ -57,6 +65,13 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
     ? fetchingSearch
     : fetchingData;
   console.log(data);
+
+  const openModalDetails = (dataId) => {
+    setModalIsOpenDetails(true);
+    const dataFindById = data?.results?.find(({ id }) => id === dataId);
+    setDetails(dataFindById);
+  };
+
   return (
     <Styles.Wrapper>
       <HeaderList
@@ -103,7 +118,9 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
                           <Styles.TBodyCell
                             key={`${row.id}-${key}`}
                             align="center"
-                            onClick={() => console.log("click")}
+                            onClick={() =>
+                              header !== "Note" && openModalDetails(row.id)
+                            }
                             value={value}
                           >
                             <Styles.TBodyCellBolean value={value}>
@@ -114,15 +131,10 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
                     )}
                     {header === "Subject" && (
                       <Styles.TBodyCell
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
-                          maxWidth: 90,
-                          margin: "auto",
-                          textAlign: "center",
+                        value={true}
+                        onClick={() => {
+                          header !== "Note" && openModalDetails(row.id);
                         }}
-                        onClick={() => console.log("click")}
                       >
                         <Button
                           name={
@@ -155,6 +167,14 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
         subject={currentSubject}
         resetSearch={resetField}
       />
+      {header !== "Note" && (
+        <ModalDetails
+          header={header}
+          modalIsOpen={modalIsOpenDetails}
+          closeModal={() => setModalIsOpenDetails(false)}
+          details={details}
+        />
+      )}
     </Styles.Wrapper>
   );
 };

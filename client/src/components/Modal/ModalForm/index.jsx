@@ -11,8 +11,8 @@ import {
   defaultTodoList,
 } from "constans";
 import { Modal, Button, Field } from "components";
-import * as Styles from "./styles";
 import { useDispatch } from "react-redux";
+import * as Styles from "./styles";
 
 //Subject, Deadline, Note, Todolist
 const ModalForm = ({
