@@ -12,7 +12,13 @@ const HeaderList = ({ header, register, watch, setModalIsOpenFormAdd }) => {
           register={register}
           watch={watch}
           headerList={true}
-          headerName={header === "Subject" ? "Search by name" : "Search"}
+          headerName={
+            header === "Subject"
+              ? "Search by name"
+              : header === "Note"
+              ? "Search by topic"
+              : "Search"
+          }
         />
       </Styles.InputWrapper>
       <Styles.ButtonWrapper>

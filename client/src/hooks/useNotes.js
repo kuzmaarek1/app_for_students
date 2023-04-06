@@ -5,7 +5,7 @@ import {
   useDeleteNoteMutation,
 } from "reducers/notesApiSlice";
 
-export const useSubjects = () => {
+export const useNotes = () => {
   const toast = useToast();
   const [createNote] = useCreateNoteMutation();
   const [deleteNote] = useDeleteNoteMutation();

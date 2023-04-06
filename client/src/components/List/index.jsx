@@ -11,14 +11,14 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
   const { currentSubject } = useSelector((state) => state.subject);
   const dispatch = useDispatch();
   const getEndpointProps =
-    header === "Subject" ? { undefined } : { id: currentSubject.id };
+    header === "Subject" ? { undefined } : currentSubject.id;
 
   const searchEndpointProps =
     header === "Subject"
       ? watch(`${header.toLowerCase()}-search`)
       : {
           name: watch(`${header.toLowerCase()}-search`),
-          id: currentSubject.id,
+          subject: currentSubject.id,
         };
   useEffect(() => {
     if (!watch(`${header.toLowerCase()}-search`)) {
@@ -42,7 +42,12 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
   const { data: dataSearch, isFetching: fetchingSearch } =
     searchEndpoint.useQueryState(searchEndpointProps);
 
-  const tableRow = header === "Subject" ? ["name", "ects", ""] : [];
+  const tableRow =
+    header === "Subject"
+      ? ["name", "ects", ""]
+      : header === "Note"
+      ? ["number", "topic", "date"]
+      : [];
 
   const data = watch(`${header.toLowerCase()}-search`) ? dataSearch : dataGet;
 

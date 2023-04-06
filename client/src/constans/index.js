@@ -47,7 +47,7 @@ export const defaultSubjectValues = {
 };
 
 export const defaultNoteValues = {
-  name: "",
+  number: "",
   topic: "",
   description: "",
   date: "",

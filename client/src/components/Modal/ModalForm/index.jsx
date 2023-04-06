@@ -56,7 +56,7 @@ const ModalForm = ({
       <Styles.Header>Add {header}</Styles.Header>
       <Styles.Form
         onSubmit={handleSubmit(async (register) => {
-          await hook.handleAdd(register);
+          await hook.handleAdd(register, subject?.id);
           closeModal();
           reset();
           resetSearch && resetSearch(`${header.toLowerCase()}-search`);
@@ -69,6 +69,8 @@ const ModalForm = ({
             watch={watch}
             errors={!!errors[props.name]}
             register={register}
+            header={header}
+            required={true}
           />
         ))}
         <Styles.ButtonWrapper>

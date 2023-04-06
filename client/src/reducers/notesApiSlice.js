@@ -4,14 +4,14 @@ export const notesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getNotes: builder.query({
       query: (subject) => ({
-        url: `/api/notes/${subject}`,
+        url: `/api/notes/${subject}/`,
         method: "GET",
       }),
       providesTags: ["Notes", "Auth"],
     }),
     createNote: builder.mutation({
       query: ({ data, subject }) => ({
-        url: `/api/notes/create/${subject}`,
+        url: `/api/notes/create/${subject}/`,
         method: "POST",
         body: data,
       }),
@@ -25,7 +25,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
     }),
     editNote: builder.mutation({
       query: ({ id, data, subject }) => ({
-        url: `/api/notes/update/${subject}/${id}`,
+        url: `/api/notes/update/${subject}/${id}/`,
         method: "PUT",
         body: data,
       }),
@@ -33,7 +33,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
     }),
     deleteNote: builder.mutation({
       query: ({ id, subject }) => ({
-        url: `/api/notes/delete/${subject}/${id}`,
+        url: `/api/notes/delete/${subject}/${id}/`,
         method: "PUT",
       }),
       invalidatesTags: ["Notes"],

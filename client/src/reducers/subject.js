@@ -17,7 +17,7 @@ const subjectReducer = createSlice({
     builder.addMatcher(
       subjectsApiSlice.endpoints.getSubject.matchFulfilled,
       (state, { payload }) => {
-        state.currentSubject = payload?.id ? payload : null;
+        state.currentSubject = payload?.results?.id ? payload.results : null;
       }
     );
     builder.addMatcher(

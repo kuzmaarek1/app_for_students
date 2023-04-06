@@ -11,6 +11,7 @@ const Field = ({
   validate,
   headerList,
   headerName,
+  header,
 }) => {
   const inputOrTextarea = name === "description" ? "textarea" : "input";
   const ref = !validate
@@ -22,11 +23,13 @@ const Field = ({
   return (
     <Styles.Wrapper
       description={name === "description"}
+      note={header === "Note"}
       headerList={headerList}
     >
       <Styles.Input
         as={inputOrTextarea}
         type={type}
+        note={header === "Note"}
         description={name === "description"}
         id={name}
         {...register(name, ref)}
@@ -50,7 +53,10 @@ const Field = ({
           : `${name[0].toUpperCase()}${name.slice(1).replace("_", " ")}`}
       </Styles.Label>
       {errors && (
-        <Styles.Span>
+        <Styles.Span
+          description={name === "description"}
+          note={header === "Note"}
+        >
           {name === "re_password"
             ? "The passwords must be identical"
             : `${name[0].toUpperCase()}${name
