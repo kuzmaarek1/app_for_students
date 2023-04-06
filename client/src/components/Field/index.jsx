@@ -1,7 +1,17 @@
 import React from "react";
 import * as Styles from "./styles";
 
-const Field = ({ type, name, watch, errors, register, required, validate }) => {
+const Field = ({
+  type,
+  name,
+  watch,
+  errors,
+  register,
+  required,
+  validate,
+  headerList,
+  headerName,
+}) => {
   const inputOrTextarea = name === "description" ? "textarea" : "input";
   const ref = !validate
     ? { required }
@@ -10,7 +20,10 @@ const Field = ({ type, name, watch, errors, register, required, validate }) => {
         validate: (value) => value === validate || "The passwords do not match",
       };
   return (
-    <Styles.Wrapper description={name === "description"}>
+    <Styles.Wrapper
+      description={name === "description"}
+      headerList={headerList}
+    >
       <Styles.Input
         as={inputOrTextarea}
         type={type}
@@ -28,9 +41,12 @@ const Field = ({ type, name, watch, errors, register, required, validate }) => {
         big={name === "re_password"}
         date={name === "date"}
         exam={name === "exam"}
+        headerList={headerList}
       >
         {name === "re_password"
           ? "Repeat password"
+          : headerList
+          ? headerName
           : `${name[0].toUpperCase()}${name.slice(1).replace("_", " ")}`}
       </Styles.Label>
       {errors && (

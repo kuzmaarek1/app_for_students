@@ -14,17 +14,22 @@ export const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGrey};
 `;
 
-export const TableWrapper = styled(Table)``;
+export const TableWrapper = styled(Table)`
+  border: 0px;
+`;
 
 export const TContainer = styled(TableContainer)``;
 
-export const THead = styled(TableHead)``;
+export const THead = styled(TableHead)`
+  background-color: ${({ theme }) => theme.colors.lightGrey};
+`;
 
 export const TRow = styled(TableRow)``;
 
 export const THeadCell = styled(TableCell)``;
 
 export const TBody = styled(TableBody)`
+  background-color: ${({ theme }) => theme.colors.lightGrey};
   tr:nth-child(2n + 1) {
     background-color: ${({ theme }) => theme.colors.grey};
   }

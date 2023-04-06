@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import Paper from "@mui/material/Paper";
-import { Button } from "components";
+import { Button, HeaderList } from "components";
 import * as Styles from "./styles";
 
 const List = ({ header, hook, endpoint, getEndpoint }) => {
+  const { register, watch, setFocus, resetField } = useForm();
   const { currentSubject } = useSelector((state) => state.subject);
   const dispatch = useDispatch();
   const getEndpointProps =
@@ -27,11 +29,12 @@ const List = ({ header, hook, endpoint, getEndpoint }) => {
 
   return (
     <Styles.Wrapper>
+      <HeaderList header={header} register={register} watch={watch} />
       <Styles.TContainer component={Paper}>
         <Styles.TableWrapper
           sx={{
             minWidth: 650,
-            fontFamily: ["Montserrat", "sans-serif"].join(","),
+            fontFamily: ["Montserrat", "sans-serisf"].join(","),
           }}
           size="small"
           aria-label="a dense table"
@@ -53,10 +56,7 @@ const List = ({ header, hook, endpoint, getEndpoint }) => {
           <Styles.TBody>
             {data?.results.map((row) => {
               return (
-                <Styles.TRow
-                  key={row.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
+                <Styles.TRow key={row.id} sx={{ "& td": { border: 0 } }}>
                   {Object.entries(row).map(
                     ([key, value]) =>
                       tableRow.includes(key) && (
@@ -75,7 +75,7 @@ const List = ({ header, hook, endpoint, getEndpoint }) => {
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "center",
-                        maxWidth: 100,
+                        maxWidth: 70,
                         margin: "auto",
                         textAlign: "center",
                       }}

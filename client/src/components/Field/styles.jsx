@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
-  width: 90vw;
+  width: ${({ headerList }) => (headerList ? "100%" : "90vw")};
   margin: 10px;
   margin-bottom: ${({ description }) => (description ? "60px" : "10px")};
   height: 50px;
@@ -55,7 +55,8 @@ export const Input = styled.input`
 
 export const Label = styled.label`
   position: absolute;
-  width: ${({ big }) => (big ? "150px" : "100px")};
+  width: ${({ big, headerList }) =>
+    big ? "150px" : headerList ? "300px" : "100px"};
   top: 50%;
   left: 5%;
   right: auto;
