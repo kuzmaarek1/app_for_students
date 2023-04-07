@@ -29,6 +29,16 @@ const subjectReducer = createSlice({
       }
     );
     builder.addMatcher(
+      subjectsApiSlice.endpoints.deleteSubject.matchFulfilled,
+      (state, { payload }) => {
+        if (state.currentSubject.id === payload.idDeleted) {
+          state.currentSubject = payload?.newSubject?.id
+            ? payload.newSubject
+            : null;
+        }
+      }
+    );
+    builder.addMatcher(
       subjectsApiSlice.endpoints.createSubject.matchFulfilled,
       (state, { payload }) => {
         state.currentSubject = payload;
