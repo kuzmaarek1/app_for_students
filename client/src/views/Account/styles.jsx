@@ -33,6 +33,9 @@ export const DetailsWrapper = styled.div`
   div:nth-child(4n + 3) {
     background-color: ${({ theme }) => theme.colors.grey};
   }
+  @media (max-width: 640px) {
+    width: 100%;
+  }
 `;
 
 export const Details = styled.div`

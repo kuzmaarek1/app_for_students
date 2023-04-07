@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   modalSubjectForm,
@@ -11,8 +11,8 @@ import {
   defaultTodoList,
 } from "constans";
 import { Modal, Button, Field } from "components";
-import * as Styles from "./styles";
 import { useDispatch } from "react-redux";
+import * as Styles from "./styles";
 
 //Subject, Deadline, Note, Todolist
 const ModalForm = ({
@@ -22,6 +22,8 @@ const ModalForm = ({
   closeModal,
   subject,
   resetSearch,
+  details,
+  closeDetails,
 }) => {
   const dispatch = useDispatch();
   const formData =
@@ -51,15 +53,31 @@ const ModalForm = ({
     defaultValues: defaultValue,
   });
 
+  useEffect(() => {
+    if (details) {
+      Object.entries(details).forEach(([key, value]) => {
+        formData.forEach(
+          ({ name }) => name.includes(key) && setValue(key, value)
+        );
+      });
+    }
+  }, [details?.id]);
+
   return (
     <>
-      <Styles.Header>Add {header}</Styles.Header>
+      <Styles.Header>
+        {details ? `Edit ${header}` : `Add ${header}`}
+      </Styles.Header>
       <Styles.Form
         onSubmit={handleSubmit(async (register) => {
-          console.log(register);
-          await hook.handleAdd(register, subject?.id);
+          if (!details) {
+            await hook.handleAdd(register, subject?.id);
+          } else {
+            await hook.handleEdit(register, subject?.id);
+          }
           closeModal();
           reset();
+          closeDetails && closeDetails();
           resetSearch && resetSearch(`${header.toLowerCase()}-search`);
         })}
       >
