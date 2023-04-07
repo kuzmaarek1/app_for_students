@@ -24,6 +24,11 @@ const ModalDetails = ({
       case "handleEdit":
         setModalIsOpenFormEdit(true);
         break;
+      case "handleDelete":
+        await hook.handleDelete(details, subject?.id);
+        resetSearch(`${header.toLowerCase()}-search`);
+        closeModal();
+        break;
       default:
         break;
     }
