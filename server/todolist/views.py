@@ -20,7 +20,15 @@ def create_todolist(request, subject_id):
     if serializer.is_valid():
         serializer.save(created_by=request.user, subject=subject)
         return Response({'message':'Create'})
-
+    
+@api_view(['PUT'])
+def update_todolist(request, subject_id, todolist_id):
+    subject = Subject.objects.filter(id=subject_id).first()
+    todolist = Todolist.objects.filter(subject=subject, id=todolist_id).first()
+    serializer = TodolistSerializer(todolist, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({'message':'Update'})
 
 @api_view(['PATCH'])
 def doned_todolist(request, subject_id, list_id):

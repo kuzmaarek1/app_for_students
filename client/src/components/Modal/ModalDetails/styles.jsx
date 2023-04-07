@@ -35,8 +35,8 @@ export const DetailsWrapper = styled.div`
   grid-template-columns: repeat(2, 1fr);
   overflow-y: auto;
   overflow-x: none;
-  div:nth-child(4n),
-  div:nth-child(4n + 3) {
+  div:nth-child(4n + 1),
+  div:nth-child(4n + 2) {
     background-color: ${({ theme }) => theme.colors.grey};
   }
   @media (max-width: 640px) {

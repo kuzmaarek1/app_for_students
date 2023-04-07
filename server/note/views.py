@@ -30,3 +30,11 @@ def create_note(request, subject_id):
         serializer.save(created_by=request.user, subject=subject)
         return Response({'message':'Create'})
 
+@api_view(['PUT'])
+def update_note(request, subject_id, note_id):
+    subject = Subject.objects.filter(id=subject_id).first()
+    note = Note.objects.filter(subject=subject, id=note_id).first()
+    serializer = NoteSerializer(note, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({'message':'Update'})

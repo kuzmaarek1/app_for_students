@@ -73,7 +73,7 @@ const ModalForm = ({
           if (!details) {
             await hook.handleAdd(register, subject?.id);
           } else {
-            await hook.handleEdit(register, subject?.id);
+            await hook.handleEdit(details.id, register, subject?.id);
           }
           closeModal();
           reset();

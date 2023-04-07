@@ -28,4 +28,12 @@ def create_subject(request):
     serializer = SubjectSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save(created_by=request.user)
-    return Response(serializer.data)
+        return Response(serializer.data)
+
+@api_view(['PUT'])
+def update_subject(request, subject_id):
+    subject =  Subject.objects.filter(id=subject_id).first()
+    serializer = SubjectSerializer(subject, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
