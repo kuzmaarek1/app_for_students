@@ -34,6 +34,13 @@ const ModalDetails = ({
     }
   };
 
+  const tableRow =
+    header === "Subject"
+      ? ["name", "ects", "description"]
+      : header === "Deadline"
+      ? ["description", "exam", "date"]
+      : ["description", "isDone"];
+
   return (
     <>
       <Styles.HeaderDetails>
@@ -48,6 +55,25 @@ const ModalDetails = ({
           ))}
         </Styles.ButtonWrapper>
       </Styles.HeaderDetails>
+      <Styles.DetailsWrapper>
+        {Object.entries(details).map(
+          ([key, value], index) =>
+            tableRow.includes(key) && (
+              <React.Fragment key={`${key}-${index}`}>
+                <Styles.Details
+                  boldText={true}
+                  description={key === "description"}
+                >
+                  {key[0].toUpperCase()}
+                  {key.slice(1).replace("_", " ")}
+                </Styles.Details>
+                <Styles.Details description={key === "description"}>
+                  {String(value)}
+                </Styles.Details>
+              </React.Fragment>
+            )
+        )}
+      </Styles.DetailsWrapper>
       <ModalForm
         header={header}
         modalIsOpen={modalIsOpenFormEdit}
@@ -58,7 +84,6 @@ const ModalDetails = ({
         hook={hook}
         subject={subject}
         details={details}
-        endpoint={endpoint}
         resetSearch={resetSearch}
       />
     </>

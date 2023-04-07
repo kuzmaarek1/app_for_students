@@ -28,3 +28,47 @@ export const ButtonWrapper = styled.div`
     justify-content: center;
   }
 `;
+
+export const DetailsWrapper = styled.div`
+  display: grid;
+  margin-top: 1vh;
+  grid-template-columns: repeat(2, 1fr);
+  overflow-y: auto;
+  overflow-x: none;
+  div:nth-child(4n),
+  div:nth-child(4n + 3) {
+    background-color: ${({ theme }) => theme.colors.grey};
+  }
+  @media (max-width: 640px) {
+    overflow: scroll;
+    grid-template-columns: repeat(1, 1fr);
+    max-height: 65vh;
+    div:nth-child(2n) {
+      background-color: ${({ theme }) => theme.colors.grey};
+    }
+  }
+`;
+
+export const Details = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vh;
+  width: 100%;
+  text-align: center;
+  flex-wrap: wrap-reverse;
+  overflow: auto;
+  ${({ description }) =>
+    description &&
+    css`
+      height: 20vh;
+    `}
+  ${({ boldText }) =>
+    boldText &&
+    css`
+      font-weight: 800;
+      @media (max-width: 640px) {
+        height: 5vh;
+      }
+    `}
+`;
