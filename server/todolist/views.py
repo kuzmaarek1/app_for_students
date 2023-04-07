@@ -38,3 +38,10 @@ def doned_todolist(request, subject_id, list_id):
     if serializer.is_valid():
         serializer.save(created_by=request.user, subject=subject)
         return Response({'message':'Doned'})
+
+
+@api_view(['PUT'])
+def delete_todolist(request, subject_id, todolist_id):
+    subject = Subject.objects.filter(created_by=request.user, id=subject_id).first()
+    Todolist.objects.filter(id=todolist_id, subject=subject).delete()
+    return Response({'message':'Deleted'})
