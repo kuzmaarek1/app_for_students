@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import get_subjects, get_subject, search_subjects, create_subject
+from .views import get_subjects, get_subject, search_subjects, create_subject, update_subject
 
 urlpatterns = [ 
     path('subjects/',get_subjects, name='get_subjects'),
@@ -7,5 +7,5 @@ urlpatterns = [
     path('subjects/search/', search_subjects, name='search_subjects'),
     path('subjects/create/', create_subject, name='create_subject'),
     #path('subjects/delete/', delete_subject, name='delete_subject'),
-    #path('subjects/update/', update_subject, name='update_subject'),
+    path('subjects/update/<int:subject_id>/', update_subject, name='update_subject'),
 ]
