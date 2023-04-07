@@ -51,6 +51,7 @@ const ModalDetails = ({
               name={name}
               color={color}
               onClick={() => handleButtonClick(func)}
+              key={name}
             />
           ))}
         </Styles.ButtonWrapper>
