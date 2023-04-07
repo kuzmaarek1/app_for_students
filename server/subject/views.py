@@ -37,3 +37,10 @@ def update_subject(request, subject_id):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
+
+@api_view(['PUT'])
+def delete_subject(request, subject_id):
+    Subject.objects.filter(id=subject_id, created_by=request.user).delete()
+    subject =  Subject.objects.filter(created_by=request.user).order_by('-id').first()
+    serializer = SubjectSerializer(subject)
+    return Response({'idDeleted': subject_id, 'newSubject': serializer.data})

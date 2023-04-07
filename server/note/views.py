@@ -38,3 +38,9 @@ def update_note(request, subject_id, note_id):
     if serializer.is_valid():
         serializer.save()
         return Response({'message':'Update'})
+    
+@api_view(['PUT'])
+def delete_note(request, subject_id, note_id):
+    subject = Subject.objects.filter(created_by=request.user, id=subject_id).first()
+    Note.objects.filter(id=note_id, subject=subject).delete()
+    return Response({'message':'Deleted'})

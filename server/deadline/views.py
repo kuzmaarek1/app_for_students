@@ -28,3 +28,9 @@ def update_deadline(request, subject_id, deadline_id):
     if serializer.is_valid():
         serializer.save()
         return Response({'message':'Update'})
+
+@api_view(['PUT'])
+def delete_deadline(request, subject_id, deadline_id):
+    subject = Subject.objects.filter(created_by=request.user, id=subject_id).first()
+    Deadline.objects.filter(id=deadline_id, subject=subject).delete()
+    return Response({'message':'Deleted'})
