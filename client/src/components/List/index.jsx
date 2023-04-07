@@ -170,9 +170,13 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
       {header !== "Note" && (
         <ModalDetails
           header={header}
+          hook={hook}
           modalIsOpen={modalIsOpenDetails}
           closeModal={() => setModalIsOpenDetails(false)}
+          subject={currentSubject}
           details={details}
+          endpoint={endpoint}
+          resetSearch={resetField}
         />
       )}
     </Styles.Wrapper>
