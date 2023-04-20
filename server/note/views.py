@@ -13,6 +13,14 @@ def get_notes(request, subject_id):
     return Response({"results":serializer.data})
 
 @api_view(['GET'])
+def get_note(request, subject_id, note_id):
+    subject = Subject.objects.filter(id=subject_id).first()
+    note =  Note.objects.filter(subject=subject).get(id=note_id)
+    print(note)
+    serializer = NoteSerializer(note, many=False)
+    return Response({"results":serializer.data})
+
+@api_view(['GET'])
 def search_notes(request,subject_id):
     search = request.GET.get('search')
     print(search)

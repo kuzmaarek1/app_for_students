@@ -9,6 +9,12 @@ export const notesApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ["Notes", "Auth"],
     }),
+    getNote: builder.query({
+      query: ({ subject, id }) => ({
+        url: `/api/notes/note/${subject}/${id}/`,
+        method: "GET",
+      }),
+    }),
     createNote: builder.mutation({
       query: ({ data, subject }) => ({
         url: `/api/notes/create/${subject}/`,
