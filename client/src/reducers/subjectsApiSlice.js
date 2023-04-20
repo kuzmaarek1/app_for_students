@@ -4,7 +4,7 @@ export const subjectsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getSubject: builder.query({
       query: () => ({
-        url: "api/subjects/subject/",
+        url: "/api/subjects/subject/",
         method: "GET",
       }),
       providesTags: ["Auth", "Subject"],
@@ -26,7 +26,7 @@ export const subjectsApiSlice = apiSlice.injectEndpoints({
     }),
     searchSubject: builder.query({
       query: (name) => ({
-        url: `api/subjects/search/?search=${name}`,
+        url: `/api/subjects/search/?search=${name}`,
         method: "GET",
       }),
     }),

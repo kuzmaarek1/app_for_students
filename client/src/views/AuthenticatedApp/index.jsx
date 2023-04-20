@@ -1,7 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { Subjects, Notes, Deadlines, Todolits, Account } from "views";
+import {
+  Subjects,
+  Notes,
+  NotesDetails,
+  Deadlines,
+  Todolits,
+  Account,
+} from "views";
 
 const AuthenticatedApp = () => {
   const { currentSubject } = useSelector((state) => state.subject);
@@ -11,6 +18,7 @@ const AuthenticatedApp = () => {
         <>
           <Route path="/subjects" element={<Subjects />} />
           <Route path="/notes" element={<Notes />} />
+          <Route path="/notes/:id" element={<NotesDetails />} />
           <Route path="/deadlines" element={<Deadlines />} />
           <Route path="/todolits" element={<Todolits />} />
         </>
