@@ -88,3 +88,23 @@ export const Details = styled.div`
       }
     `}
 `;
+
+export const ImageWrapper = styled.div`
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 100px;
+  gap: 10px;
+`;
+
+export const ImageLink = styled.a`
+  width: 200px;
+  height: 250px;
+`;
+
+export const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+`;

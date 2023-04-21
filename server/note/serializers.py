@@ -1,7 +1,10 @@
 from .models import Note
+from image.models import Image
+from image.serializers import ImageSerializer
 from rest_framework import serializers
 
 class NoteSerializer(serializers.ModelSerializer):
+     image = ImageSerializer(many=True)
      class Meta:
         model = Note
         read_only_fields = (
@@ -13,6 +16,6 @@ class NoteSerializer(serializers.ModelSerializer):
             'topic',
             'description',
             'date',
+            'image',
             'created_by', 
-            'image' 
         )

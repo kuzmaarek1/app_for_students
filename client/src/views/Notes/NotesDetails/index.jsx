@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { notesApiSlice } from "reducers/notesApiSlice";
 import { useNotes } from "hooks/useNotes";
 import { Button, Loader, ModalForm } from "components";
@@ -29,6 +29,8 @@ const NotesDetails = () => {
     subject: currentSubject.id,
     id: params.id,
   });
+
+  console.log(data);
   return (
     <Styles.Wrapper>
       <Styles.HeaderWrapper>
@@ -56,7 +58,7 @@ const NotesDetails = () => {
         </Styles.ButtonWrapper>
       </Styles.HeaderWrapper>
 
-      {isFetching ? (
+      {isFetching && !data ? (
         <Styles.LoaderWrapper>
           <Loader />
         </Styles.LoaderWrapper>
@@ -84,7 +86,17 @@ const NotesDetails = () => {
           </Styles.DetailsWrapper>
         </>
       )}
-
+      <Styles.ImageWrapper>
+        {data &&
+          data?.results?.image.map(({ name }) => (
+            <Styles.ImageLink
+              href={`http://localhost:8000${name}/`}
+              key={`${name}`}
+            >
+              <Styles.Image src={`http://localhost:8000${name}/`} />
+            </Styles.ImageLink>
+          ))}
+      </Styles.ImageWrapper>
       <ModalForm
         header="Image"
         modalIsOpen={modalIsOpen}
