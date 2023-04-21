@@ -13,5 +13,6 @@ class NoteSerializer(serializers.ModelSerializer):
             'topic',
             'description',
             'date',
-            'created_by' 
+            'created_by', 
+            'image' 
         )

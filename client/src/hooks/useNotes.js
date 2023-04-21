@@ -1,15 +1,19 @@
+import React, { useRef } from "react";
 import { useToast } from "hooks/useToast";
 import {
   useEditNoteMutation,
   useCreateNoteMutation,
   useDeleteNoteMutation,
+  useAddImageMutation,
 } from "reducers/notesApiSlice";
 
 export const useNotes = () => {
   const toast = useToast();
+  const fileName = useRef("");
   const [createNote] = useCreateNoteMutation();
   const [deleteNote] = useDeleteNoteMutation();
   const [editNote] = useEditNoteMutation();
+  const [addImage] = useAddImageMutation();
 
   const handleAdd = async (data, subject) => {
     return await toast.handleDisplayBanner(
@@ -36,5 +40,16 @@ export const useNotes = () => {
     );
   };
 
-  return { handleAdd, handleEdit, handleDelete };
+  const handleAddImage = async (subject, id, register) => {
+    fileName.current = "";
+    const data = new FormData();
+    fileName.current = `${Date.now()}${register.image[0].name}`;
+    data.append("image", register.image[0], fileName.current);
+    return await toast.handleDisplayBanner(
+      addImage({ subject, id, data }),
+      `Adding image`,
+      `Added image`
+    );
+  };
+  return { handleAdd, handleEdit, handleDelete, handleAddImage };
 };

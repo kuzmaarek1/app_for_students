@@ -40,6 +40,12 @@ export const modalDeadlineForm = [
 
 export const modalTodoListForm = [{ type: "text", name: "description" }];
 
+export const modalImageForm = [{ type: "file", name: "image" }];
+
+export const defaultImageValues = {
+  image: "",
+};
+
 export const defaultSubjectValues = {
   name: "",
   description: "",

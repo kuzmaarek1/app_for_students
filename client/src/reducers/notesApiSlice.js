@@ -14,6 +14,7 @@ export const notesApiSlice = apiSlice.injectEndpoints({
         url: `/api/notes/note/${subject}/${id}/`,
         method: "GET",
       }),
+      providesTags: ["Notes"],
     }),
     createNote: builder.mutation({
       query: ({ data, subject }) => ({
@@ -44,6 +45,14 @@ export const notesApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Notes"],
     }),
+    addImage: builder.mutation({
+      query: ({ subject, id, data }) => ({
+        url: `/api/notes/image/${subject}/${id}/`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["Notes"],
+    }),
   }),
 });
 
@@ -53,4 +62,5 @@ export const {
   useEditNoteMutation,
   useCreateNoteMutation,
   useDeleteNoteMutation,
+  useAddImageMutation,
 } = notesApiSlice;

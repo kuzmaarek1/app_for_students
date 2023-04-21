@@ -5,10 +5,12 @@ import {
   modalNoteForm,
   modalDeadlineForm,
   modalTodoListForm,
+  modalImageForm,
   defaultSubjectValues,
   defaultNoteValues,
   defaultDeadlineValues,
   defaultTodoList,
+  defaultImageValues,
 } from "constans";
 import { Modal, Button, Field } from "components";
 import { useDispatch } from "react-redux";
@@ -24,6 +26,7 @@ const ModalForm = ({
   resetSearch,
   details,
   closeDetails,
+  notesId,
 }) => {
   const dispatch = useDispatch();
   const formData =
@@ -33,6 +36,8 @@ const ModalForm = ({
       ? modalNoteForm
       : header === "Deadline"
       ? modalDeadlineForm
+      : header === "Image"
+      ? modalImageForm
       : modalTodoListForm;
   const defaultValue =
     header === "Subject"
@@ -41,6 +46,8 @@ const ModalForm = ({
       ? defaultNoteValues
       : header === "Deadline"
       ? defaultDeadlineValues
+      : header === "Image"
+      ? defaultImageValues
       : defaultTodoList;
   const {
     register,
@@ -71,7 +78,9 @@ const ModalForm = ({
       <Styles.Form
         onSubmit={handleSubmit(async (register) => {
           if (!details) {
-            await hook.handleAdd(register, subject?.id);
+            if (header === "Image")
+              await hook.handleAddImage(subject?.id, notesId, register);
+            else await hook.handleAdd(register, subject?.id);
           } else {
             await hook.handleEdit(details.id, register, subject?.id);
           }

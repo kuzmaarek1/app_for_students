@@ -47,5 +47,10 @@ export const useSubjects = () => {
     );
   };
 
-  return { handleAdd, handleEdit, handleDelete, handleChangeSubject };
+  return {
+    handleAdd,
+    handleEdit,
+    handleDelete,
+    handleChangeSubject,
+  };
 };
