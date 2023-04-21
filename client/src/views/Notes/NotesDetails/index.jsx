@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { notesApiSlice } from "reducers/notesApiSlice";
 import { useNotes } from "hooks/useNotes";
-import { Button, ModalForm } from "components";
+import { Button, Loader, ModalForm } from "components";
+import * as Styles from "./styles";
 
 const NotesDetails = () => {
   const dispatch = useDispatch();
@@ -22,23 +23,68 @@ const NotesDetails = () => {
         }
       )
     );
-  }, []);
+  }, [params.id]);
 
   const { data, isFetching } = notesApiSlice.endpoints.getNote.useQueryState({
     subject: currentSubject.id,
     id: params.id,
   });
-  console.log(data);
-
   return (
-    <div>
-      <Button
-        width="65%"
-        height="7vh"
-        name={`Add image`}
-        onClick={() => setModalIsOpen(true)}
-      />
-      NotesDetails
+    <Styles.Wrapper>
+      <Styles.HeaderWrapper>
+        <Styles.Header>Notes</Styles.Header>
+        <Styles.ButtonWrapper>
+          <Button
+            width="65%"
+            height="7vh"
+            name={`Add image`}
+            onClick={() => setModalIsOpen(true)}
+          />
+          <Button
+            width="65%"
+            height="7vh"
+            name={`Edit`}
+            onClick={() => setModalIsOpen(true)}
+          />
+          <Button
+            width="65%"
+            height="7vh"
+            name={`Delete`}
+            color={`red`}
+            onClick={() => setModalIsOpen(true)}
+          />
+        </Styles.ButtonWrapper>
+      </Styles.HeaderWrapper>
+
+      {isFetching ? (
+        <Styles.LoaderWrapper>
+          <Loader />
+        </Styles.LoaderWrapper>
+      ) : (
+        <>
+          <Styles.DetailsWrapper>
+            {data &&
+              Object.entries(data?.results).map(
+                ([key, value], index) =>
+                  ["number", "topic", "description", "date"].includes(key) && (
+                    <React.Fragment key={`${key}-${index}`}>
+                      <Styles.Details
+                        boldText={true}
+                        description={key === "description"}
+                      >
+                        {key[0].toUpperCase()}
+                        {key.slice(1).replace("_", " ")}
+                      </Styles.Details>
+                      <Styles.Details description={key === "description"}>
+                        {String(value)}
+                      </Styles.Details>
+                    </React.Fragment>
+                  )
+              )}
+          </Styles.DetailsWrapper>
+        </>
+      )}
+
       <ModalForm
         header="Image"
         modalIsOpen={modalIsOpen}
@@ -48,7 +94,7 @@ const NotesDetails = () => {
         notesId={params.id}
         //resetSearch={resetField}
       />
-    </div>
+    </Styles.Wrapper>
   );
 };
 
