@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
+import { GrClose } from "react-icons/gr";
 import { notesApiSlice } from "reducers/notesApiSlice";
 import { useNotes } from "hooks/useNotes";
 import { Button, Loader, ModalForm } from "components";
@@ -35,9 +36,13 @@ const NotesDetails = () => {
 
   console.log(data);
 
-  const handleDelate = async () => {
+  const handleDelete = async () => {
     await hook.handleDelete(data.results, currentSubject?.id);
     navigate("/notes");
+  };
+
+  const handleDeleteImage = async (id) => {
+    await hook.handleDeleteImage(id);
   };
 
   return (
@@ -62,7 +67,7 @@ const NotesDetails = () => {
             height="7vh"
             name={`Delete`}
             color={`red`}
-            onClick={() => handleDelate()}
+            onClick={() => handleDelete()}
           />
         </Styles.ButtonWrapper>
       </Styles.HeaderWrapper>
@@ -97,16 +102,19 @@ const NotesDetails = () => {
       )}
       <Styles.ImageWrapper>
         {data &&
-          data?.results?.image.map(({ name }) => (
-            <Styles.ImageLink
-              href={`http://localhost:8000${name}/`}
-              key={`${name}`}
-            >
-              <Styles.Image
-                effect="blur"
-                src={`http://localhost:8000${name}/`}
-              />
-            </Styles.ImageLink>
+          data?.results?.image.map(({ id, name }) => (
+            <>
+              <GrClose onClick={() => handleDeleteImage(id)} />
+              <Styles.ImageLink
+                href={`http://localhost:8000${name}/`}
+                key={`${name}`}
+              >
+                <Styles.Image
+                  effect="blur"
+                  src={`http://localhost:8000${name}/`}
+                />
+              </Styles.ImageLink>
+            </>
           ))}
       </Styles.ImageWrapper>
       <ModalForm

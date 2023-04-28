@@ -66,3 +66,8 @@ def add_image(request, subject_id, note_id):
         note.image.add(image)
         note.save()
         return Response({"message":"Add image"})
+
+@api_view(['PATCH'])
+def delete_image(request, image_id):
+    Image.objects.filter(id=image_id).delete()
+    return Response({'message':'Deleted image'})

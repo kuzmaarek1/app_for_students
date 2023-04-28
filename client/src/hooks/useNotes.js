@@ -5,6 +5,7 @@ import {
   useCreateNoteMutation,
   useDeleteNoteMutation,
   useAddImageMutation,
+  useDeleteImageMutation,
 } from "reducers/notesApiSlice";
 
 export const useNotes = () => {
@@ -14,6 +15,7 @@ export const useNotes = () => {
   const [deleteNote] = useDeleteNoteMutation();
   const [editNote] = useEditNoteMutation();
   const [addImage] = useAddImageMutation();
+  const [deleteImage] = useDeleteImageMutation();
 
   const handleAdd = async (data, subject) => {
     return await toast.handleDisplayBanner(
@@ -51,5 +53,19 @@ export const useNotes = () => {
       `Added image`
     );
   };
-  return { handleAdd, handleEdit, handleDelete, handleAddImage };
+
+  const handleDeleteImage = async (id) => {
+    return await toast.handleDisplayBanner(
+      deleteImage(id),
+      `Delete image`,
+      `Delete image`
+    );
+  };
+  return {
+    handleAdd,
+    handleEdit,
+    handleDelete,
+    handleAddImage,
+    handleDeleteImage,
+  };
 };

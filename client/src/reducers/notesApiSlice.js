@@ -53,6 +53,13 @@ export const notesApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Notes"],
     }),
+    deleteImage: builder.mutation({
+      query: (id) => ({
+        url: `/api/notes/delete_image/${id}/`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Notes"],
+    }),
   }),
 });
 
@@ -63,4 +70,5 @@ export const {
   useCreateNoteMutation,
   useDeleteNoteMutation,
   useAddImageMutation,
+  useDeleteImageMutation,
 } = notesApiSlice;
