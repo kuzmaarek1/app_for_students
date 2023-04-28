@@ -59,6 +59,7 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
       ? getEndpoint
       : endpoint.endpoints.getTodolistsDone;
 
+  console.log(getEndpointQuery);
   const { data: dataGet, isFetching: fetchingData } =
     getEndpointQuery.useQueryState(getEndpointProps);
 
@@ -172,6 +173,29 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
                               e.stopPropagation();
                               hook.handleChangeSubject(row);
                             }
+                          }}
+                        />
+                      </Styles.TBodyCell>
+                    )}
+
+                    {header === "Todolist" && (
+                      <Styles.TBodyCell
+                        value={true}
+                        onClick={() => {
+                          header !== "Note" && openModalDetails(row.id);
+                        }}
+                      >
+                        <Button
+                          name={isDone ? "Not Done" : "Done"}
+                          color={isDone ? "red" : "blue"}
+                          width="200px"
+                          height="30px"
+                          onClick={async (e) => {
+                            e.stopPropagation();
+                            await hook.handleDoned(row, currentSubject.id, {
+                              isDoned: isDone ? false : true,
+                            });
+                            setIsDone((prev) => !prev);
                           }}
                         />
                       </Styles.TBodyCell>

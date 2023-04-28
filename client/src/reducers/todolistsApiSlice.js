@@ -40,9 +40,10 @@ export const todolistsApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["Todolists"],
     }),
     doneTodolist: builder.mutation({
-      query: ({ id, subject }) => ({
-        url: `/api/todolists/doned/${subject}/${id}/`,
+      query: ({ id, subject, data }) => ({
+        url: `/api/todolists/changeDoned/${subject}/${id}/`,
         method: "PATCH",
+        body: data,
       }),
       invalidatesTags: ["Todolists"],
     }),

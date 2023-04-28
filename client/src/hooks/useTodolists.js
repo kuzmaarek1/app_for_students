@@ -38,12 +38,15 @@ export const useTodolists = () => {
     );
   };
 
-  const handleDoned = async (todolist, subject) => {
+  const handleDoned = async (todolist, subject, data) => {
     const { id } = todolist;
+    const { isDoned } = data;
     return await toast.handleDisplayBanner(
-      doneTodolist({ id, subject }),
-      `Doing todolist ${todolist.description}`,
-      `Doned todolist ${todolist.description}`
+      doneTodolist({ id, subject, data }),
+      `Change todolist`,
+      isDoned
+        ? `Doned todolist ${todolist.description}`
+        : `Not Doned todolist ${todolist.description}`
     );
   };
 
