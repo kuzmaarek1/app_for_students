@@ -14,6 +14,12 @@ export const Input = styled.input`
   width: 100%;
   height: ${({ description, note }) =>
     description ? (note ? "380px" : "100px") : "50px"};
+  ${({ file }) =>
+    file &&
+    css`
+      text-align: center;
+      padding-top: 15px;
+    `}
   ${({ description }) =>
     description &&
     css`
@@ -68,8 +74,8 @@ export const Label = styled.label`
   transition-timing-function: ease-in;
   transition-duration: 300ms;
   font-size: 15px;
-  ${({ date, exam }) =>
-    (date || exam) &&
+  ${({ date, exam, file }) =>
+    (date || exam || file) &&
     css`
       transform: translate(-30px, -38px) scale(0.9);
       font-size: 12px;

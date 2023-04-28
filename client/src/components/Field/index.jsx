@@ -31,6 +31,7 @@ const Field = ({
         type={type}
         note={header === "Note"}
         description={name === "description"}
+        file={type === "file"}
         id={name}
         {...register(name, ref)}
         empty={!watch(name)}
@@ -44,6 +45,7 @@ const Field = ({
         big={name === "re_password"}
         date={name === "date"}
         exam={name === "exam"}
+        file={type === "file"}
         headerList={headerList}
       >
         {name === "re_password"
