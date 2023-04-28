@@ -8,7 +8,7 @@ const Navbar = () => {
   const { currentSubject } = useSelector((state) => state.subject);
   const dispatch = useDispatch();
   const navbarTitle = currentSubject
-    ? ["subjects", "notes", "deadlines", "todolits", "account"]
+    ? ["subjects", "notes", "deadlines", "todolist", "account"]
     : ["account"];
 
   useEffect(() => {

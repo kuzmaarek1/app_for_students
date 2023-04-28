@@ -6,7 +6,7 @@ import { todolistsApiSlice } from "reducers/todolistsApiSlice";
 const Todolists = () => {
   const hook = useTodolists();
   const endpoint = todolistsApiSlice;
-  const getEndpoint = todolistsApiSlice.endpoints.getTodolists;
+  const getEndpoint = todolistsApiSlice.endpoints.getTodolistsNotDone;
   return (
     <List
       header="Todolist"

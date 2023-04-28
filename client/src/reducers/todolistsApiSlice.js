@@ -2,9 +2,16 @@ import { apiSlice } from "api/apiSlice";
 
 export const todolistsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getTodolists: builder.query({
+    getTodolistsDone: builder.query({
       query: (subject) => ({
-        url: `/api/todolists/${subject}/`,
+        url: `/api/todolists/done/${subject}/`,
+        method: "GET",
+      }),
+      providesTags: ["Todolists", "Auth"],
+    }),
+    getTodolistsNotDone: builder.query({
+      query: (subject) => ({
+        url: `/api/todolists/notDone/${subject}/`,
         method: "GET",
       }),
       providesTags: ["Todolists", "Auth"],
@@ -33,9 +40,10 @@ export const todolistsApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["Todolists"],
     }),
     doneTodolist: builder.mutation({
-      query: ({ id, subject }) => ({
-        url: `/api/todolists/doned/${subject}/${id}/`,
+      query: ({ id, subject, data }) => ({
+        url: `/api/todolists/changeDoned/${subject}/${id}/`,
         method: "PATCH",
+        body: data,
       }),
       invalidatesTags: ["Todolists"],
     }),
@@ -43,7 +51,8 @@ export const todolistsApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
-  useGetTodolistsQuery,
+  useGetTodolistsDoneQuery,
+  useGetTodolistsNotDoneQuery,
   useEditTodolistMutation,
   useCreateTodolistMutation,
   useDeleteTodolistMutation,

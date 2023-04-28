@@ -67,3 +67,71 @@ export const ButtonWrapper = styled.div`
       `}
   }
 `;
+
+export const TodlistIsDonedWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: -25px;
+  gap: 50px;
+  @media (max-width: 640px) {
+    grid-column: span 2 / span 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+`;
+
+export const TodlistDoned = styled.div`
+  cursor: pointer;
+  font-weight: 600;
+  position: relative;
+  ${({ isDone }) =>
+    isDone &&
+    css`
+      color: green;
+    `}
+  &:before {
+    display: none;
+    ${({ isDone }) =>
+      isDone &&
+      css`
+        content: "";
+        display: block;
+        position: absolute;
+        margin-left: -10%;
+        width: 120%;
+        height: 5px;
+        bottom: -5px;
+        background-color: green;
+      `}
+  }
+`;
+
+export const TodlistNotDoned = styled.div`
+  cursor: pointer;
+  font-weight: 600;
+  position: relative;
+  ${({ isDone }) =>
+    !isDone &&
+    css`
+      color: ${({ theme }) => theme.colors.red};
+    `}
+  &:before {
+    display: none;
+    ${({ isDone }) =>
+      !isDone &&
+      css`
+        content: "";
+        display: block;
+        position: absolute;
+        margin-left: -10%;
+        width: 120%;
+        height: 5px;
+        bottom: -5px;
+        background-color: ${({ theme }) => theme.colors.red};
+      `}
+  }
+`;
