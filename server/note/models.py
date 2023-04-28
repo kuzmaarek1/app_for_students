@@ -12,4 +12,4 @@ class Note(models.Model):
     date =  models.DateField()
     subject = models.ForeignKey(Subject, related_name='subject_note', on_delete=models.CASCADE)
     created_by = models.ForeignKey(User, related_name='note_create', on_delete=models.CASCADE)
-    image = models.ManyToManyField(Image, related_name='image', null=True)
+    image = models.ManyToManyField(Image, related_name='image', blank=True, null=True)

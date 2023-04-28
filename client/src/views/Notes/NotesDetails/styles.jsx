@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export const Wrapper = styled.header`
   background-color: ${({ theme }) => theme.colors.lightGrey};
@@ -103,8 +104,9 @@ export const ImageLink = styled.a`
   height: 250px;
 `;
 
-export const Image = styled.img`
-  width: 100%;
-  height: 100%;
+export const Image = styled(LazyLoadImage)`
+  width: 200px;
+  height: 250px;
   border-radius: 15px;
+  object-fit: cover;
 `;

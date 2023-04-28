@@ -35,6 +35,8 @@ def search_notes(request,subject_id):
 def create_note(request, subject_id):
     subject = Subject.objects.filter(id=subject_id).first()
     serializer = NoteSerializer(data=request.data)
+    print(serializer)
+    print(serializer.is_valid())
     if serializer.is_valid():
         serializer.save(created_by=request.user, subject=subject)
         return Response({'message':'Create'})
@@ -59,11 +61,8 @@ def add_image(request, subject_id, note_id):
     subject = Subject.objects.filter(id=subject_id).first()
     serializer = ImageSerializer(data={'name':request.data['image']})
     note =  Note.objects.filter(subject=subject).get(id=note_id)
-    print(serializer.is_valid())
     if serializer.is_valid():
         image = serializer.save()
-        print(image.id)
-        print(note)
         note.image.add(image)
         note.save()
         return Response({"message":"Add image"})

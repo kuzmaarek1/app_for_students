@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { notesApiSlice } from "reducers/notesApiSlice";
 import { useNotes } from "hooks/useNotes";
 import { Button, Loader, ModalForm } from "components";
 import * as Styles from "./styles";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const NotesDetails = () => {
   const dispatch = useDispatch();
@@ -93,7 +94,10 @@ const NotesDetails = () => {
               href={`http://localhost:8000${name}/`}
               key={`${name}`}
             >
-              <Styles.Image src={`http://localhost:8000${name}/`} />
+              <Styles.Image
+                effect="blur"
+                src={`http://localhost:8000${name}/`}
+              />
             </Styles.ImageLink>
           ))}
       </Styles.ImageWrapper>
