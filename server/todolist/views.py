@@ -6,7 +6,21 @@ from .serializers import TodolistSerializer
 from subject.models import Subject
 
 @api_view(['GET'])
-def get_todolists(request, subject_id):
+def get_todolists_done(request, subject_id):
+    subject = Subject.objects.filter(id=subject_id).first()
+    todolists = Todolist.objects.filter(subject=subject, isDoned=True).order_by('-id')
+    serializer = TodolistSerializer(todolists, many=True)
+    return Response({"results":serializer.data})
+
+@api_view(['GET'])
+def get_todolists_not_done(request, subject_id):
+    subject = Subject.objects.filter(id=subject_id).first()
+    todolists = Todolist.objects.filter(subject=subject, isDoned=False).order_by('-id')
+    serializer = TodolistSerializer(todolists, many=True)
+    return Response({"results":serializer.data})
+
+@api_view(['GET'])
+def get_todolists_not_done(request, subject_id):
     subject = Subject.objects.filter(id=subject_id).first()
     todolists = Todolist.objects.filter(subject=subject).order_by('-id')
     serializer = TodolistSerializer(todolists, many=True)

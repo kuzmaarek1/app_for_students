@@ -19,6 +19,7 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
   const [details, setDetails] = useState({});
   const [modalIsOpenDetails, setModalIsOpenDetails] = useState(false);
   const [modalIsOpenFormAdd, setModalIsOpenFormAdd] = useState(false);
+  const [isDone, setIsDone] = useState(false);
   const { currentSubject } = useSelector((state) => state.subject);
   const dispatch = useDispatch();
   const getEndpointProps =
@@ -33,8 +34,14 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
         };
   useEffect(() => {
     if (!watch(`${header.toLowerCase()}-search`)) {
+      const getEndpointName =
+        header !== "Todolist"
+          ? `get${header}s`
+          : isDone === true
+          ? `get${header}sDone`
+          : `get${header}sNotDone`;
       dispatch(
-        endpoint.util.prefetch(`get${header}s`, getEndpointProps, {
+        endpoint.util.prefetch(getEndpointName, getEndpointProps, {
           force: true,
         })
       );
@@ -45,10 +52,15 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
         })
       );
     }
-  }, [watch(`${header.toLowerCase()}-search`)]);
+  }, [watch(`${header.toLowerCase()}-search`), isDone]);
+
+  const getEndpointQuery =
+    header !== "Todolist" || isDone === false
+      ? getEndpoint
+      : endpoint.endpoints.getTodolistsDone;
 
   const { data: dataGet, isFetching: fetchingData } =
-    getEndpoint.useQueryState(getEndpointProps);
+    getEndpointQuery.useQueryState(getEndpointProps);
 
   const { data: dataSearch, isFetching: fetchingSearch } =
     searchEndpoint.useQueryState(searchEndpointProps);
@@ -82,6 +94,8 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
         register={register}
         watch={watch}
         setModalIsOpenFormAdd={setModalIsOpenFormAdd}
+        isDone={isDone}
+        setIsDone={setIsDone}
       />
       {fetching ? (
         <Styles.LoaderAndErrorWrapper>

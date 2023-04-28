@@ -6,7 +6,7 @@ import {
   Notes,
   NotesDetails,
   Deadlines,
-  Todolits,
+  Todolist,
   Account,
 } from "views";
 
@@ -20,7 +20,7 @@ const AuthenticatedApp = () => {
           <Route path="/notes" element={<Notes />} />
           <Route path="/notes/:id" element={<NotesDetails />} />
           <Route path="/deadlines" element={<Deadlines />} />
-          <Route path="/todolits" element={<Todolits />} />
+          <Route path="/todolist" element={<Todolist />} />
         </>
       )}
       <Route path="/account" element={<Account />} />

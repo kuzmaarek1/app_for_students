@@ -2,11 +2,18 @@ import React from "react";
 import { Field, Button } from "components";
 import * as Styles from "./styles";
 
-const HeaderList = ({ header, register, watch, setModalIsOpenFormAdd }) => {
+const HeaderList = ({
+  header,
+  register,
+  watch,
+  setModalIsOpenFormAdd,
+  isDone,
+  setIsDone,
+}) => {
   return (
-    <Styles.Wrapper isInput={header !== "Deadline" && header !== "Todolist"}>
+    <Styles.Wrapper isInput={header !== "Deadline"}>
       <Styles.Header>{header}s</Styles.Header>
-      {header !== "Deadline" && header !== "Todolist" && (
+      {header !== "Deadline" && header !== "Todolist" ? (
         <Styles.InputWrapper>
           <Field
             name={`${header.toLowerCase()}-search`}
@@ -22,10 +29,15 @@ const HeaderList = ({ header, register, watch, setModalIsOpenFormAdd }) => {
             }
           />
         </Styles.InputWrapper>
+      ) : header === "Todolist" ? (
+        <div>
+          <div onClick={() => setIsDone(true)}>Zrobione</div>
+          <div onClick={() => setIsDone(false)}>Nie zrobione</div>
+        </div>
+      ) : (
+        <></>
       )}
-      <Styles.ButtonWrapper
-        isInput={header !== "Deadline" && header !== "Todolist"}
-      >
+      <Styles.ButtonWrapper isInput={header !== "Deadline"}>
         <Button
           width="65%"
           height="7vh"
