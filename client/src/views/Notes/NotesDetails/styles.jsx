@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { IoCloseSharp } from "react-icons/io5";
 
 export const Wrapper = styled.header`
   background-color: ${({ theme }) => theme.colors.lightGrey};
@@ -90,13 +91,17 @@ export const Details = styled.div`
     `}
 `;
 
-export const ImageWrapper = styled.div`
+export const ImagesWrapper = styled.div`
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   height: 100px;
   gap: 10px;
+`;
+
+export const ImageWrapper = styled.div`
+  position: relative;
 `;
 
 export const ImageLink = styled.a`
@@ -109,4 +114,13 @@ export const Image = styled(LazyLoadImage)`
   height: 250px;
   border-radius: 15px;
   object-fit: cover;
+`;
+
+export const CloseButton = styled(IoCloseSharp)`
+  position: absolute;
+  cursor: pointer;
+  color: ${({ theme }) => theme.colors.red};
+  right: 5px;
+  top: 5px;
+  background-color: ${({ theme }) => theme.colors.lightGrey};
 `;

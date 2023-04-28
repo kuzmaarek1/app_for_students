@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { GrClose } from "react-icons/gr";
 import { notesApiSlice } from "reducers/notesApiSlice";
 import { useNotes } from "hooks/useNotes";
 import { Button, Loader, ModalForm } from "components";
@@ -100,23 +99,27 @@ const NotesDetails = () => {
           </Styles.DetailsWrapper>
         </>
       )}
-      <Styles.ImageWrapper>
+      <Styles.ImagesWrapper>
         {data &&
           data?.results?.image.map(({ id, name }) => (
-            <>
-              <GrClose onClick={() => handleDeleteImage(id)} />
+            <Styles.ImageWrapper key={`${name}`}>
               <Styles.ImageLink
+                onClick={(e) => e.stopPropagation()}
                 href={`http://localhost:8000${name}/`}
-                key={`${name}`}
               >
                 <Styles.Image
                   effect="blur"
                   src={`http://localhost:8000${name}/`}
                 />
               </Styles.ImageLink>
-            </>
+              <Styles.CloseButton
+                onClick={() => {
+                  handleDeleteImage(id);
+                }}
+              />
+            </Styles.ImageWrapper>
           ))}
-      </Styles.ImageWrapper>
+      </Styles.ImagesWrapper>
       <ModalForm
         header="Image"
         modalIsOpen={modalImageIsOpen}

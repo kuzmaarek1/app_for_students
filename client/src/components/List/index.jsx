@@ -74,7 +74,7 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
     const dataFindById = data?.results?.find(({ id }) => id === dataId);
     setDetails(dataFindById);
   };
-  console.log(data.results.length);
+
   return (
     <Styles.Wrapper>
       <HeaderList
@@ -87,7 +87,7 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
         <Styles.LoaderAndErrorWrapper>
           <Loader />
         </Styles.LoaderAndErrorWrapper>
-      ) : data.results.length === 0 || !data.results ? (
+      ) : data?.results?.length === 0 || !data?.results ? (
         <Styles.LoaderAndErrorWrapper>
           <img src={notResults} />
           Brak danych
