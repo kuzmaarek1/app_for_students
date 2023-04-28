@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:8000",
+  baseUrl: "https://app-for-student.onrender.com",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth?.authData?.auth_token;
     if (token) {

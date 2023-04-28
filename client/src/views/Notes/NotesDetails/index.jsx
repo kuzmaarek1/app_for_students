@@ -103,11 +103,11 @@ const NotesDetails = () => {
             <Styles.ImageWrapper key={`${name}`}>
               <Styles.ImageLink
                 onClick={(e) => e.stopPropagation()}
-                href={`http://localhost:8000${name}/`}
+                href={`https://app-for-student.onrender.com${name}/`}
               >
                 <Styles.Image
                   effect="blur"
-                  src={`http://localhost:8000${name}/`}
+                  src={`https://app-for-student.onrender.com${name}/`}
                 />
               </Styles.ImageLink>
               <Styles.CloseButton
