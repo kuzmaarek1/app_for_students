@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { notesApiSlice } from "reducers/notesApiSlice";
 import { useNotes } from "hooks/useNotes";
 import { Button, Loader, ModalForm } from "components";
@@ -10,6 +10,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 const NotesDetails = () => {
   const dispatch = useDispatch();
   const params = useParams();
+  const navigate = useNavigate();
   const hook = useNotes();
   const { currentSubject } = useSelector((state) => state.subject);
   const [modalImageIsOpen, setModalImageIsOpen] = useState(false);
@@ -33,6 +34,12 @@ const NotesDetails = () => {
   });
 
   console.log(data);
+
+  const handleDelate = async () => {
+    await hook.handleDelete(data.results, currentSubject?.id);
+    navigate("/notes");
+  };
+
   return (
     <Styles.Wrapper>
       <Styles.HeaderWrapper>
@@ -55,7 +62,7 @@ const NotesDetails = () => {
             height="7vh"
             name={`Delete`}
             color={`red`}
-            onClick={() => setModalImageIsOpen(true)}
+            onClick={() => handleDelate()}
           />
         </Styles.ButtonWrapper>
       </Styles.HeaderWrapper>
