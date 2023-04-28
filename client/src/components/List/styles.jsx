@@ -25,6 +25,7 @@ export const LoaderAndErrorWrapper = styled.div`
 
 export const TableWrapper = styled(Table)`
   border: 0px;
+  background-color: ${({ theme }) => theme.colors.lightGrey};
 `;
 
 export const TContainer = styled(TableContainer)``;

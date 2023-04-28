@@ -30,10 +30,17 @@ const HeaderList = ({
           />
         </Styles.InputWrapper>
       ) : header === "Todolist" ? (
-        <div>
-          <div onClick={() => setIsDone(true)}>Zrobione</div>
-          <div onClick={() => setIsDone(false)}>Nie zrobione</div>
-        </div>
+        <Styles.TodlistIsDonedWrapper>
+          <Styles.TodlistDoned isDone={isDone} onClick={() => setIsDone(true)}>
+            DONED
+          </Styles.TodlistDoned>
+          <Styles.TodlistNotDoned
+            isDone={isDone}
+            onClick={() => setIsDone(false)}
+          >
+            NOT DONED
+          </Styles.TodlistNotDoned>
+        </Styles.TodlistIsDonedWrapper>
       ) : (
         <></>
       )}

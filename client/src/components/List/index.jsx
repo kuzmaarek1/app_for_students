@@ -186,9 +186,11 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
                         }}
                       >
                         <Button
-                          name={isDone ? "Not Done" : "Done"}
+                          name={
+                            isDone ? "Change to Not Done" : "Change to Done"
+                          }
                           color={isDone ? "red" : "blue"}
-                          width="200px"
+                          width="250px"
                           height="30px"
                           onClick={async (e) => {
                             e.stopPropagation();
