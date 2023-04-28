@@ -12,7 +12,8 @@ const NotesDetails = () => {
   const params = useParams();
   const hook = useNotes();
   const { currentSubject } = useSelector((state) => state.subject);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalImageIsOpen, setModalImageIsOpen] = useState(false);
+  const [modalEditIsOpen, setModalEditIsOpen] = useState(false);
 
   useEffect(() => {
     dispatch(
@@ -41,20 +42,20 @@ const NotesDetails = () => {
             width="65%"
             height="7vh"
             name={`Add image`}
-            onClick={() => setModalIsOpen(true)}
+            onClick={() => setModalImageIsOpen(true)}
           />
           <Button
             width="65%"
             height="7vh"
             name={`Edit`}
-            onClick={() => setModalIsOpen(true)}
+            onClick={() => setModalEditIsOpen(true)}
           />
           <Button
             width="65%"
             height="7vh"
             name={`Delete`}
             color={`red`}
-            onClick={() => setModalIsOpen(true)}
+            onClick={() => setModalImageIsOpen(true)}
           />
         </Styles.ButtonWrapper>
       </Styles.HeaderWrapper>
@@ -103,12 +104,20 @@ const NotesDetails = () => {
       </Styles.ImageWrapper>
       <ModalForm
         header="Image"
-        modalIsOpen={modalIsOpen}
-        closeModal={() => setModalIsOpen(false)}
+        modalIsOpen={modalImageIsOpen}
+        closeModal={() => setModalImageIsOpen(false)}
         hook={hook}
         subject={currentSubject}
         notesId={params.id}
-        //resetSearch={resetField}
+      />
+      <ModalForm
+        header="Note"
+        modalIsOpen={modalEditIsOpen}
+        closeModal={() => setModalEditIsOpen(false)}
+        hook={hook}
+        subject={currentSubject}
+        notesId={params.id}
+        details={data?.results}
       />
     </Styles.Wrapper>
   );
