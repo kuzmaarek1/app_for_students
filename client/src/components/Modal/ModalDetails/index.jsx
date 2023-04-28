@@ -11,8 +11,6 @@ const ModalDetails = ({
   closeModal,
   resetSearch,
 }) => {
-  console.log(details);
-
   const [modalIsOpenFormEdit, setModalIsOpenFormEdit] = useState(false);
   const buttonData = [
     { name: "Edit", color: "blue", func: "handleEdit" },

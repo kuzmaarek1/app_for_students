@@ -59,7 +59,6 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
       ? getEndpoint
       : endpoint.endpoints.getTodolistsDone;
 
-  console.log(getEndpointQuery);
   const { data: dataGet, isFetching: fetchingData } =
     getEndpointQuery.useQueryState(getEndpointProps);
 
@@ -80,7 +79,6 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
   const fetching = watch(`${header.toLowerCase()}-search`)
     ? fetchingSearch
     : fetchingData;
-  console.log(data);
 
   const openModalDetails = (dataId) => {
     setModalIsOpenDetails(true);

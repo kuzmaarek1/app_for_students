@@ -26,7 +26,6 @@ export const useAuth = () => {
         null,
         "Login Failed:\n Your username or password is incorrect"
       );
-      console.log(e);
     }
   };
 

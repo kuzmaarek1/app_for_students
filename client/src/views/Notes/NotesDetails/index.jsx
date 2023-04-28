@@ -33,8 +33,6 @@ const NotesDetails = () => {
     id: params.id,
   });
 
-  console.log(data);
-
   const handleDelete = async () => {
     await hook.handleDelete(data.results, currentSubject?.id);
     navigate("/notes");
