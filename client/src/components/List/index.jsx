@@ -11,6 +11,7 @@ import {
   ModalDetails,
 } from "components";
 import * as Styles from "./styles";
+import notResults from "assets/notResults.png";
 
 const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
   const { register, watch, resetField } = useForm();
@@ -73,7 +74,7 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
     const dataFindById = data?.results?.find(({ id }) => id === dataId);
     setDetails(dataFindById);
   };
-
+  console.log(data.results.length);
   return (
     <Styles.Wrapper>
       <HeaderList
@@ -83,9 +84,14 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
         setModalIsOpenFormAdd={setModalIsOpenFormAdd}
       />
       {fetching ? (
-        <Styles.LoaderWrapper>
+        <Styles.LoaderAndErrorWrapper>
           <Loader />
-        </Styles.LoaderWrapper>
+        </Styles.LoaderAndErrorWrapper>
+      ) : data.results.length === 0 || !data.results ? (
+        <Styles.LoaderAndErrorWrapper>
+          <img src={notResults} />
+          Brak danych
+        </Styles.LoaderAndErrorWrapper>
       ) : (
         <Styles.TContainer component={Paper}>
           <Styles.TableWrapper

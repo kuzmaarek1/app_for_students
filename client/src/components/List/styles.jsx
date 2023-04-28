@@ -14,12 +14,13 @@ export const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGrey};
 `;
 
-export const LoaderWrapper = styled.div`
+export const LoaderAndErrorWrapper = styled.div`
   width: 100%;
-  height: 92.5vh;
+  height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 `;
 
 export const TableWrapper = styled(Table)`
