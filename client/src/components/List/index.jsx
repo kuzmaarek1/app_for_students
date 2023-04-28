@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Paper from "@mui/material/Paper";
 import {
@@ -10,9 +11,11 @@ import {
   ModalDetails,
 } from "components";
 import * as Styles from "./styles";
+import notResults from "assets/notResults.png";
 
 const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
   const { register, watch, resetField } = useForm();
+  const navigate = useNavigate();
   const [details, setDetails] = useState({});
   const [modalIsOpenDetails, setModalIsOpenDetails] = useState(false);
   const [modalIsOpenFormAdd, setModalIsOpenFormAdd] = useState(false);
@@ -81,9 +84,14 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
         setModalIsOpenFormAdd={setModalIsOpenFormAdd}
       />
       {fetching ? (
-        <Styles.LoaderWrapper>
+        <Styles.LoaderAndErrorWrapper>
           <Loader />
-        </Styles.LoaderWrapper>
+        </Styles.LoaderAndErrorWrapper>
+      ) : data?.results?.length === 0 || !data?.results ? (
+        <Styles.LoaderAndErrorWrapper>
+          <img src={notResults} />
+          Brak danych
+        </Styles.LoaderAndErrorWrapper>
       ) : (
         <Styles.TContainer component={Paper}>
           <Styles.TableWrapper
@@ -119,7 +127,9 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
                             key={`${row.id}-${key}`}
                             align="center"
                             onClick={() =>
-                              header !== "Note" && openModalDetails(row.id)
+                              header === "Note"
+                                ? navigate(`/notes/${row.id}`)
+                                : openModalDetails(row.id)
                             }
                             value={value}
                           >
