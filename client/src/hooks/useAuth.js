@@ -15,18 +15,12 @@ export const useAuth = () => {
   const [logOut] = useLogOutMutation();
 
   const handleSiginIn = async (formData) => {
-    try {
-      const data = await signIn(formData);
-      if ("error" in data)
-        if ("status" in data.error) throw new Error(String(data.error.status));
-    } catch (e) {
-      toastHook.handleDisplayBanner(
-        "error",
-        null,
-        null,
-        "Login Failed:\n Your username or password is incorrect"
-      );
-    }
+    return await toastHook.handleDisplayBanner(
+      signIn(formData),
+      "Loading",
+      "Login",
+      "Login Failed:\n Your username or password is incorrect"
+    );
   };
 
   const handleSignUp = async (formData) => {
