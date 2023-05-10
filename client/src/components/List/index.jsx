@@ -147,7 +147,11 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
                             value={value}
                           >
                             <Styles.TBodyCellBolean value={value}>
-                              {String(value)}
+                              {key === "exam"
+                                ? value === true
+                                  ? "Yes"
+                                  : "No"
+                                : String(value)}
                             </Styles.TBodyCellBolean>
                           </Styles.TBodyCell>
                         )
