@@ -193,7 +193,7 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
                           onClick={async (e) => {
                             e.stopPropagation();
                             await hook.handleDoned(row, currentSubject.id, {
-                              isDoned: isDone ? "not" : "yes",
+                              isDoned: isDone ? false : true,
                             });
                             setIsDone((prev) => !prev);
                           }}
