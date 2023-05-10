@@ -78,6 +78,14 @@ export const Details = styled.div`
   text-align: center;
   flex-wrap: wrap-reverse;
   overflow: auto;
+  @media (min-width: 640px) {
+    ${({ description }) => {
+      description &&
+        css`
+          grid-column: span 2 / span 2;
+        `;
+    }}
+  }
   ${({ description }) =>
     !description &&
     css`
@@ -86,7 +94,6 @@ export const Details = styled.div`
   ${({ description }) =>
     description &&
     css`
-      grid-column: span 2 / span 2;
       min-height: ${({ boldText }) => (boldText ? "6vh" : "10vh")};
       max-height: ${({ boldText }) => (boldText ? "6vh" : "100vh")};
     `}
