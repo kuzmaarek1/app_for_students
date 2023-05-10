@@ -40,13 +40,20 @@ export const DetailsWrapper = styled.div`
     div:nth-child(4n + 2) {
       background-color: ${({ theme }) => theme.colors.grey};
     }
+    div:nth-child(4n),
+    div:nth-child(4n + 3) {
+      background-color: ${({ theme }) => theme.colors.lightGrey};
+    }
   }
   @media (max-width: 640px) {
     overflow: scroll;
     grid-template-columns: repeat(1, 1fr);
     max-height: 65vh;
-    div:nth-child(2n) {
+    div:nth-child(2n + 1) {
       background-color: ${({ theme }) => theme.colors.grey};
+    }
+    div:nth-child(2n) {
+      background-color: ${({ theme }) => theme.colors.lightGrey};
     }
   }
 `;
