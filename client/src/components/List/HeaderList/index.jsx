@@ -32,13 +32,13 @@ const HeaderList = ({
       ) : header === "Todolist" ? (
         <Styles.TodlistIsDonedWrapper>
           <Styles.TodlistDoned isDone={isDone} onClick={() => setIsDone(true)}>
-            DONED
+            DONE
           </Styles.TodlistDoned>
           <Styles.TodlistNotDoned
             isDone={isDone}
             onClick={() => setIsDone(false)}
           >
-            NOT DONED
+            NOT DONE
           </Styles.TodlistNotDoned>
         </Styles.TodlistIsDonedWrapper>
       ) : (
