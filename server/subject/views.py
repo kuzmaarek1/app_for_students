@@ -1,14 +1,20 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.core.paginator import Paginator
 from .models import Subject
 from .serializers import SubjectSerializer
 
+page_number = 2
+
 @api_view(['GET'])
 def get_subjects(request):
-    subject =  Subject.objects.filter(created_by=request.user).order_by('-id')
-    serializer = SubjectSerializer(subject, many=True)
-    return Response({"results":serializer.data})
+    number = request.GET.get('page')
+    subjects =  Subject.objects.filter(created_by=request.user).order_by('-id')
+    paginator = Paginator(subjects, page_number)
+    page_subject = paginator.get_page(number)
+    serializer = SubjectSerializer(page_subject, many=True)
+    return Response({"results":serializer.data, "has_next":page_subject.has_next()})
 
 @api_view(['GET'])
 def get_subject(request):

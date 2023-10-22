@@ -1,16 +1,22 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.core.paginator import Paginator
 from .models import Deadline
 from .serializers import DeadlineSerializer
 from subject.models import Subject
 
+page_number = 2
+
 @api_view(['GET'])
 def get_deadlines(request, subject_id):
+    number = request.GET.get('page')
     subject = Subject.objects.filter(id=subject_id).first()
     deadlines =  Deadline.objects.filter(subject=subject).order_by('-date')
-    serializer = DeadlineSerializer(deadlines, many=True)
-    return Response({"results":serializer.data})
+    paginator = Paginator(deadlines, page_number)
+    page_deadlines = paginator.get_page(number)
+    serializer = DeadlineSerializer(page_deadlines, many=True)
+    return Response({"results":serializer.data, "has_next":page_deadlines.has_next()})
 
 @api_view(['POST'])
 def create_deadline(request, subject_id):

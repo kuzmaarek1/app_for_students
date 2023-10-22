@@ -1,24 +1,32 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.core.paginator import Paginator
 from .models import Todolist
 from .serializers import TodolistSerializer
 from subject.models import Subject
 
+page_number = 2
+
 @api_view(['GET'])
 def get_todolists_done(request, subject_id):
+    number = request.GET.get('page')
     subject = Subject.objects.filter(id=subject_id).first()
     todolists = Todolist.objects.filter(subject=subject, isDoned=True).order_by('-id')
-    serializer = TodolistSerializer(todolists, many=True)
-    print(serializer)
-    return Response({"results":serializer.data})
+    paginator = Paginator(todolists, page_number)
+    page_todolists = paginator.get_page(number)
+    serializer = TodolistSerializer(page_todolists, many=True)
+    return Response({"results":serializer.data, "has_next":page_todolists.has_next()})
 
 @api_view(['GET'])
 def get_todolists_not_done(request, subject_id):
+    number = request.GET.get('page')
     subject = Subject.objects.filter(id=subject_id).first()
     todolists = Todolist.objects.filter(subject=subject, isDoned=False).order_by('-id')
-    serializer = TodolistSerializer(todolists, many=True)
-    return Response({"results":serializer.data})
+    paginator = Paginator(todolists, page_number)
+    page_todolists = paginator.get_page(number)
+    serializer = TodolistSerializer(page_todolists, many=True)
+    return Response({"results":serializer.data, "has_next":page_todolists.has_next()})
 
 @api_view(['POST'])
 def create_todolist(request, subject_id):

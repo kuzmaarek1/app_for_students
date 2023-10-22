@@ -1,18 +1,24 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.core.paginator import Paginator
 from .models import Note
 from image.models import Image
 from .serializers import NoteSerializer
 from image.serializers import ImageSerializer
 from subject.models import Subject
 
+page_number = 2
+
 @api_view(['GET'])
 def get_notes(request, subject_id):
+    number = request.GET.get('page')
     subject = Subject.objects.filter(id=subject_id).first()
     notes =  Note.objects.filter(subject=subject).order_by('-id')
-    serializer = NoteSerializer(notes, many=True)
-    return Response({"results":serializer.data})
+    paginator = Paginator(notes, page_number)
+    page_notes = paginator.get_page(number)
+    serializer = NoteSerializer(page_notes, many=True)
+    return Response({"results":serializer.data, "has_next":page_notes.has_next()})
 
 @api_view(['GET'])
 def get_note(request, subject_id, note_id):
