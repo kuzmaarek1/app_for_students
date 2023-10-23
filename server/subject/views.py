@@ -12,9 +12,9 @@ def get_subjects(request):
     number = request.GET.get('page')
     subjects =  Subject.objects.filter(created_by=request.user).order_by('-id')
     paginator = Paginator(subjects, page_number)
-    page_subject = paginator.get_page(number)
-    serializer = SubjectSerializer(page_subject, many=True)
-    return Response({"results":serializer.data, "has_next":page_subject.has_next()})
+    page_subjects = paginator.get_page(number)
+    serializer = SubjectSerializer(page_subjects, many=True)
+    return Response({"results":serializer.data, "has_next":page_subjects.has_next()})
 
 @api_view(['GET'])
 def get_subject(request):
@@ -24,10 +24,13 @@ def get_subject(request):
 
 @api_view(['GET'])
 def search_subjects(request):
+    number = request.GET.get('page')
     search = request.GET.get('search')
     subject =  Subject.objects.filter(created_by=request.user, name__icontains=search).order_by('-id')
-    serializer = SubjectSerializer(subject, many=True)
-    return Response({"results":serializer.data})
+    paginator = Paginator(subject, page_number)
+    page_subjects = paginator.get_page(number)
+    serializer = SubjectSerializer(page_subjects, many=True)
+    return Response({"results":serializer.data, "has_next":page_subjects.has_next()})
 
 @api_view(['POST'])
 def create_subject(request):

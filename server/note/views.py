@@ -29,13 +29,14 @@ def get_note(request, subject_id, note_id):
 
 @api_view(['GET'])
 def search_notes(request,subject_id):
+    number = request.GET.get('page')
     search = request.GET.get('search')
-    print(search)
     subject = Subject.objects.filter(id=subject_id).first()
     notes =  Note.objects.filter(subject=subject, topic__icontains=search).order_by('-id')
-    serializer = NoteSerializer(notes, many=True)
-    print(notes)
-    return Response({"results":serializer.data})
+    paginator = Paginator(notes, page_number)
+    page_notes = paginator.get_page(number)
+    serializer = NoteSerializer(page_notes, many=True)
+    return Response({"results":serializer.data, "has_next":page_notes.has_next()})
 
 @api_view(['POST'])
 def create_note(request, subject_id):
