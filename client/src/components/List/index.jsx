@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,22 +17,32 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
   const { register, watch, resetField } = useForm();
   const navigate = useNavigate();
   const [details, setDetails] = useState({});
+  const [page, setPage] = useState(1);
   const [modalIsOpenDetails, setModalIsOpenDetails] = useState(false);
   const [modalIsOpenFormAdd, setModalIsOpenFormAdd] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const { currentSubject } = useSelector((state) => state.subject);
   const dispatch = useDispatch();
+
   const getEndpointProps =
-    header === "Subject" ? { undefined } : currentSubject.id;
+    header === "Subject"
+      ? { page }
+      : { subject: currentSubject.id, page: page };
 
   const searchEndpointProps =
     header === "Subject"
-      ? watch(`${header.toLowerCase()}-search`)
+      ? { name: watch(`${header.toLowerCase()}-search`), page: page }
       : {
           name: watch(`${header.toLowerCase()}-search`),
           subject: currentSubject.id,
+          page: page,
         };
+
   useEffect(() => {
+    if (page === 0) {
+      setPage(1);
+      return;
+    }
     if (!watch(`${header.toLowerCase()}-search`)) {
       const getEndpointName =
         header !== "Todolist"
@@ -52,7 +62,7 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
         })
       );
     }
-  }, [watch(`${header.toLowerCase()}-search`), isDone]);
+  }, [watch(`${header.toLowerCase()}-search`), isDone, page]);
 
   const getEndpointQuery =
     header !== "Todolist" || isDone === false
@@ -86,6 +96,25 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
     setDetails(dataFindById);
   };
 
+  const intObserver = useRef();
+
+  const lastRef = useCallback(
+    (node) => {
+      if (fetchingData || fetchingData) return;
+
+      if (intObserver.current) intObserver.current.disconnect();
+
+      intObserver.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && data?.has_next) {
+          setPage((prev) => prev + 1);
+        }
+      });
+
+      if (node) intObserver.current.observe(node);
+    },
+    [fetchingData, fetchingSearch, data?.has_next, data]
+  );
+
   return (
     <Styles.Wrapper>
       <HeaderList
@@ -95,6 +124,7 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
         setModalIsOpenFormAdd={setModalIsOpenFormAdd}
         isDone={isDone}
         setIsDone={setIsDone}
+        setPage={setPage}
       />
       {fetching ? (
         <Styles.LoaderAndErrorWrapper>
@@ -130,31 +160,57 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
               </Styles.TRow>
             </Styles.THead>
             <Styles.TBody>
-              {data?.results.map((row) => {
+              {data?.results.map((row, indexData) => {
                 return (
                   <Styles.TRow key={row.id} sx={{ "& td": { border: 0 } }}>
                     {Object.entries(row).map(
-                      ([key, value]) =>
-                        tableRow.includes(key) && (
-                          <Styles.TBodyCell
-                            key={`${row.id}-${key}`}
-                            align="center"
-                            onClick={() =>
-                              header === "Note"
-                                ? navigate(`/notes/${row.id}`)
-                                : openModalDetails(row.id)
-                            }
-                            value={value}
-                          >
-                            <Styles.TBodyCellBolean value={value}>
-                              {key === "exam"
-                                ? value === true
-                                  ? "Yes"
-                                  : "No"
-                                : String(value)}
-                            </Styles.TBodyCellBolean>
-                          </Styles.TBodyCell>
-                        )
+                      ([key, value], index) =>
+                        tableRow.includes(key) &&
+                        (data?.results?.length === indexData + 1 &&
+                        index === 1 ? (
+                          <>
+                            <Styles.TBodyCell
+                              key={`${row.id}-${key}`}
+                              align="center"
+                              onClick={() =>
+                                header === "Note"
+                                  ? navigate(`/notes/${row.id}`)
+                                  : openModalDetails(row.id)
+                              }
+                              value={value}
+                              ref={lastRef}
+                            >
+                              <Styles.TBodyCellBolean value={value}>
+                                {key === "exam"
+                                  ? value === true
+                                    ? "Yes"
+                                    : "No"
+                                  : String(value)}
+                              </Styles.TBodyCellBolean>
+                            </Styles.TBodyCell>
+                          </>
+                        ) : (
+                          <>
+                            <Styles.TBodyCell
+                              key={`${row.id}-${key}`}
+                              align="center"
+                              onClick={() =>
+                                header === "Note"
+                                  ? navigate(`/notes/${row.id}`)
+                                  : openModalDetails(row.id)
+                              }
+                              value={value}
+                            >
+                              <Styles.TBodyCellBolean value={value}>
+                                {key === "exam"
+                                  ? value === true
+                                    ? "Yes"
+                                    : "No"
+                                  : String(value)}
+                              </Styles.TBodyCellBolean>
+                            </Styles.TBodyCell>
+                          </>
+                        ))
                     )}
                     {header === "Subject" && (
                       <Styles.TBodyCell
@@ -174,6 +230,7 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
                             if (currentSubject.id !== row.id) {
                               e.stopPropagation();
                               hook.handleChangeSubject(row);
+                              setPage(1);
                             }
                           }}
                         />
@@ -211,6 +268,7 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
           </Styles.TableWrapper>
         </Styles.TContainer>
       )}
+      {(fetchingData || fetchingData) && page !== 1 && <div>Loading More</div>}
       <ModalForm
         header={header}
         modalIsOpen={modalIsOpenFormAdd}

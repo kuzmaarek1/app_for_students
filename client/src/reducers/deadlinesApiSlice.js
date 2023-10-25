@@ -3,10 +3,22 @@ import { apiSlice } from "api/apiSlice";
 export const deadlinesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getDeadlines: builder.query({
-      query: (subject) => ({
-        url: `/api/deadlines/${subject}/`,
+      query: ({ subject, page }) => ({
+        url: `/api/deadlines/${subject}/?page=${page}`,
         method: "GET",
       }),
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      merge: (currentCache, newItems) => {
+        if (Number(newItems.page) !== 1)
+          currentCache.results.push(...newItems.results);
+        else currentCache.results = newItems.results;
+        currentCache.has_next = newItems.has_next;
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
       providesTags: ["Deadlines", "Auth"],
     }),
     createDeadline: builder.mutation({

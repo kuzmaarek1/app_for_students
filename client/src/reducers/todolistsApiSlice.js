@@ -3,17 +3,41 @@ import { apiSlice } from "api/apiSlice";
 export const todolistsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getTodolistsDone: builder.query({
-      query: (subject) => ({
-        url: `/api/todolists/done/${subject}/`,
+      query: ({ subject, page }) => ({
+        url: `/api/todolists/done/${subject}/?page=${page}`,
         method: "GET",
       }),
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      merge: (currentCache, newItems) => {
+        if (Number(newItems.page) !== 1)
+          currentCache.results.push(...newItems.results);
+        else currentCache.results = newItems.results;
+        currentCache.has_next = newItems.has_next;
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
       providesTags: ["Todolists", "Auth"],
     }),
     getTodolistsNotDone: builder.query({
-      query: (subject) => ({
-        url: `/api/todolists/notDone/${subject}/`,
+      query: ({ subject, page }) => ({
+        url: `/api/todolists/notDone/${subject}/?page=${page}`,
         method: "GET",
       }),
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      merge: (currentCache, newItems) => {
+        if (Number(newItems.page) !== 1)
+          currentCache.results.push(...newItems.results);
+        else currentCache.results = newItems.results;
+        currentCache.has_next = newItems.has_next;
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
       providesTags: ["Todolists", "Auth"],
     }),
     createTodolist: builder.mutation({

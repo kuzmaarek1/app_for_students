@@ -18,7 +18,7 @@ def get_notes(request, subject_id):
     paginator = Paginator(notes, page_number)
     page_notes = paginator.get_page(number)
     serializer = NoteSerializer(page_notes, many=True)
-    return Response({"results":serializer.data, "has_next":page_notes.has_next()})
+    return Response({"results":serializer.data, "has_next":page_notes.has_next(),"page":number})
 
 @api_view(['GET'])
 def get_note(request, subject_id, note_id):
@@ -36,7 +36,7 @@ def search_notes(request,subject_id):
     paginator = Paginator(notes, page_number)
     page_notes = paginator.get_page(number)
     serializer = NoteSerializer(page_notes, many=True)
-    return Response({"results":serializer.data, "has_next":page_notes.has_next()})
+    return Response({"results":serializer.data, "has_next":page_notes.has_next(), "page":number})
 
 @api_view(['POST'])
 def create_note(request, subject_id):

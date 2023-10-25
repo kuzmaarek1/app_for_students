@@ -16,7 +16,7 @@ def get_deadlines(request, subject_id):
     paginator = Paginator(deadlines, page_number)
     page_deadlines = paginator.get_page(number)
     serializer = DeadlineSerializer(page_deadlines, many=True)
-    return Response({"results":serializer.data, "has_next":page_deadlines.has_next()})
+    return Response({"results":serializer.data, "has_next":page_deadlines.has_next(), "page":number})
 
 @api_view(['POST'])
 def create_deadline(request, subject_id):

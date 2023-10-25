@@ -14,7 +14,7 @@ def get_subjects(request):
     paginator = Paginator(subjects, page_number)
     page_subjects = paginator.get_page(number)
     serializer = SubjectSerializer(page_subjects, many=True)
-    return Response({"results":serializer.data, "has_next":page_subjects.has_next()})
+    return Response({"results":serializer.data, "has_next":page_subjects.has_next(), "page":number})
 
 @api_view(['GET'])
 def get_subject(request):
@@ -30,7 +30,7 @@ def search_subjects(request):
     paginator = Paginator(subject, page_number)
     page_subjects = paginator.get_page(number)
     serializer = SubjectSerializer(page_subjects, many=True)
-    return Response({"results":serializer.data, "has_next":page_subjects.has_next()})
+    return Response({"results":serializer.data, "has_next":page_subjects.has_next(), "page":number})
 
 @api_view(['POST'])
 def create_subject(request):

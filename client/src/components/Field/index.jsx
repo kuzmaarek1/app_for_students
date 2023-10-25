@@ -12,10 +12,12 @@ const Field = ({
   headerList,
   headerName,
   header,
+  onChange,
 }) => {
   const inputOrTextarea = name === "description" ? "textarea" : "input";
+  const changeFunc = onChange ? onChange : () => {};
   const ref = !validate
-    ? { required }
+    ? { required, onChange: changeFunc }
     : {
         required: required,
         validate: (value) => value === validate || "The passwords do not match",

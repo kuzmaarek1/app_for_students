@@ -16,7 +16,7 @@ def get_todolists_done(request, subject_id):
     paginator = Paginator(todolists, page_number)
     page_todolists = paginator.get_page(number)
     serializer = TodolistSerializer(page_todolists, many=True)
-    return Response({"results":serializer.data, "has_next":page_todolists.has_next()})
+    return Response({"results":serializer.data, "has_next":page_todolists.has_next(), "page":number})
 
 @api_view(['GET'])
 def get_todolists_not_done(request, subject_id):
@@ -26,7 +26,7 @@ def get_todolists_not_done(request, subject_id):
     paginator = Paginator(todolists, page_number)
     page_todolists = paginator.get_page(number)
     serializer = TodolistSerializer(page_todolists, many=True)
-    return Response({"results":serializer.data, "has_next":page_todolists.has_next()})
+    return Response({"results":serializer.data, "has_next":page_todolists.has_next(), "page":number})
 
 @api_view(['POST'])
 def create_todolist(request, subject_id):
