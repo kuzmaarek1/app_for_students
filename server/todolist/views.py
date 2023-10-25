@@ -6,7 +6,7 @@ from .models import Todolist
 from .serializers import TodolistSerializer
 from subject.models import Subject
 
-page_number = 2
+page_number = 17
 
 @api_view(['GET'])
 def get_todolists_done(request, subject_id):

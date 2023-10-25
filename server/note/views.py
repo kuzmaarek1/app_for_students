@@ -8,7 +8,7 @@ from .serializers import NoteSerializer
 from image.serializers import ImageSerializer
 from subject.models import Subject
 
-page_number = 2
+page_number = 17
 
 @api_view(['GET'])
 def get_notes(request, subject_id):

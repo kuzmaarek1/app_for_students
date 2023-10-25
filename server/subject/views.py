@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 from .models import Subject
 from .serializers import SubjectSerializer
 
-page_number = 2
+page_number = 17
 
 @api_view(['GET'])
 def get_subjects(request):

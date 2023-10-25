@@ -16,7 +16,6 @@ import { Modal, Button, Field } from "components";
 import { useDispatch } from "react-redux";
 import * as Styles from "./styles";
 
-//Subject, Deadline, Note, Todolist
 const ModalForm = ({
   header,
   hook,
@@ -27,6 +26,8 @@ const ModalForm = ({
   details,
   closeDetails,
   notesId,
+  setPage,
+  endpoint,
 }) => {
   const dispatch = useDispatch();
   const formData =
@@ -81,9 +82,10 @@ const ModalForm = ({
             if (header === "Image")
               await hook.handleAddImage(subject?.id, notesId, register);
             else await hook.handleAdd(register, subject?.id);
-          } else {
-            await hook.handleEdit(details.id, register, subject?.id);
-          }
+          } else await hook.handleEdit(details.id, register, subject?.id);
+          dispatch(endpoint.util.resetApiState());
+          resetSearch(`${header.toLowerCase()}-search`);
+          setPage(0);
           closeModal();
           reset();
           closeDetails && closeDetails();

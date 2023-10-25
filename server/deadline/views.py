@@ -6,7 +6,7 @@ from .models import Deadline
 from .serializers import DeadlineSerializer
 from subject.models import Subject
 
-page_number = 2
+page_number = 17
 
 @api_view(['GET'])
 def get_deadlines(request, subject_id):

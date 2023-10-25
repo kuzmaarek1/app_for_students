@@ -126,7 +126,7 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
         setIsDone={setIsDone}
         setPage={setPage}
       />
-      {fetching ? (
+      {fetching && page == 1 ? (
         <Styles.LoaderAndErrorWrapper>
           <Loader />
         </Styles.LoaderAndErrorWrapper>
@@ -276,6 +276,8 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
         hook={hook}
         subject={currentSubject}
         resetSearch={resetField}
+        setPage={setPage}
+        endpoint={endpoint}
       />
       {header !== "Note" && (
         <ModalDetails
@@ -287,6 +289,7 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
           details={details}
           endpoint={endpoint}
           resetSearch={resetField}
+          setPage={setPage}
         />
       )}
     </Styles.Wrapper>
