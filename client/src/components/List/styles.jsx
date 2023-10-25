@@ -23,6 +23,14 @@ export const LoaderAndErrorWrapper = styled.div`
   flex-direction: column;
 `;
 
+export const LoaderMore = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+`;
+
 export const TableWrapper = styled(Table)`
   border: 0px;
   background-color: ${({ theme }) => theme.colors.lightGrey};

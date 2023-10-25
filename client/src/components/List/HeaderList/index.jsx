@@ -9,6 +9,7 @@ const HeaderList = ({
   setModalIsOpenFormAdd,
   isDone,
   setIsDone,
+  setPage,
 }) => {
   return (
     <Styles.Wrapper isInput={header !== "Deadline"}>
@@ -27,6 +28,7 @@ const HeaderList = ({
                 ? "Search by topic"
                 : "Search"
             }
+            onChange={(e) => setPage(0)}
           />
         </Styles.InputWrapper>
       ) : header === "Todolist" ? (

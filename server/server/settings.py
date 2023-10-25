@@ -11,14 +11,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-import dj_database_url
 import os
-import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-env = environ.Env()
-environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
 
 AUTH_USER_MODEL = "account.CustomUser"
 
@@ -31,10 +27,10 @@ SECRET_KEY = 'django-insecure-vx9koq96f8v0^c09gkpkhbdlg-z=!-o+w()@^7hpxldn!r34mj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'app-for-student.onrender.com']
+ALLOWED_HOSTS = []
 
 CORS_ALLOWED_ORIGINS = [
-    'https://beautiful-smakager-186671.netlify.app',
+    'http://localhost:3000',
 ]
 
 REST_FRAMEWORK = {
@@ -67,7 +63,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -77,8 +72,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware'
 ]
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'server.urls'
 
@@ -104,7 +97,10 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default':dj_database_url.parse(env("DATABASE_URL"))
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Modal, ModalForm, Button } from "components";
 import * as Styles from "./styles";
 
@@ -10,7 +11,9 @@ const ModalDetails = ({
   endpoint,
   closeModal,
   resetSearch,
+  setPage,
 }) => {
+  const dispatch = useDispatch();
   const [modalIsOpenFormEdit, setModalIsOpenFormEdit] = useState(false);
   const buttonData = [
     { name: "Edit", color: "blue", func: "handleEdit" },
@@ -25,6 +28,8 @@ const ModalDetails = ({
       case "handleDelete":
         await hook.handleDelete(details, subject?.id);
         resetSearch(`${header.toLowerCase()}-search`);
+        dispatch(endpoint.util.resetApiState());
+        setPage(0);
         closeModal();
         break;
       default:
@@ -84,6 +89,8 @@ const ModalDetails = ({
         subject={subject}
         details={details}
         resetSearch={resetSearch}
+        setPage={setPage}
+        endpoint={endpoint}
       />
     </>
   );

@@ -3,10 +3,22 @@ import { apiSlice } from "api/apiSlice";
 export const notesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getNotes: builder.query({
-      query: (subject) => ({
-        url: `/api/notes/${subject}/`,
+      query: ({ subject, page }) => ({
+        url: `/api/notes/${subject}/?page=${page}`,
         method: "GET",
       }),
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      merge: (currentCache, newItems) => {
+        if (Number(newItems.page) !== 1)
+          currentCache.results.push(...newItems.results);
+        else currentCache.results = newItems.results;
+        currentCache.has_next = newItems.has_next;
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
       providesTags: ["Notes", "Auth"],
     }),
     getNote: builder.query({
@@ -25,10 +37,22 @@ export const notesApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["Notes"],
     }),
     searchNote: builder.query({
-      query: ({ name, subject }) => ({
-        url: `/api/notes/search/${subject}/?search=${name}`,
+      query: ({ name, subject, page }) => ({
+        url: `/api/notes/search/${subject}/?search=${name}&page=${page}`,
         method: "GET",
       }),
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      merge: (currentCache, newItems) => {
+        if (Number(newItems.page) !== 1)
+          currentCache.results.push(...newItems.results);
+        else currentCache.results = newItems.results;
+        currentCache.has_next = newItems.has_next;
+      },
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
     }),
     editNote: builder.mutation({
       query: ({ id, data, subject }) => ({

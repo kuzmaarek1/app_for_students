@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     "/api",
     createProxyMiddleware({
-      target: "https://app-for-student.onrender.com",
+      target: "http://127.0.0.1:8000/",
       changeOrigin: true,
     })
   );

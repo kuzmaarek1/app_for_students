@@ -8,3 +8,4 @@ export { default as ModalDetails } from "components/Modal/ModalDetails";
 export { default as List } from "components/List";
 export { default as HeaderList } from "components/List/HeaderList";
 export { default as MobileNavbar } from "components/Navbar/MobileNavbar";
+export { default as TableCell } from "components/TableCell";
