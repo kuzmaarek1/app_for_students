@@ -11,6 +11,7 @@ import {
   ModalDetails,
 } from "components";
 import * as Styles from "./styles";
+import { TableCell } from "components";
 import notResults from "assets/notResults.png";
 
 const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
@@ -165,52 +166,25 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
                   <Styles.TRow key={row.id} sx={{ "& td": { border: 0 } }}>
                     {Object.entries(row).map(
                       ([key, value], index) =>
-                        tableRow.includes(key) &&
-                        (data?.results?.length === indexData + 1 &&
-                        index === 1 ? (
-                          <>
-                            <Styles.TBodyCell
-                              key={`${row.id}-${key}`}
-                              align="center"
-                              onClick={() =>
-                                header === "Note"
-                                  ? navigate(`/notes/${row.id}`)
-                                  : openModalDetails(row.id)
-                              }
-                              value={value}
-                              ref={lastRef}
-                            >
-                              <Styles.TBodyCellBolean value={value}>
-                                {key === "exam"
-                                  ? value === true
-                                    ? "Yes"
-                                    : "No"
-                                  : String(value)}
-                              </Styles.TBodyCellBolean>
-                            </Styles.TBodyCell>
-                          </>
-                        ) : (
-                          <>
-                            <Styles.TBodyCell
-                              key={`${row.id}-${key}`}
-                              align="center"
-                              onClick={() =>
-                                header === "Note"
-                                  ? navigate(`/notes/${row.id}`)
-                                  : openModalDetails(row.id)
-                              }
-                              value={value}
-                            >
-                              <Styles.TBodyCellBolean value={value}>
-                                {key === "exam"
-                                  ? value === true
-                                    ? "Yes"
-                                    : "No"
-                                  : String(value)}
-                              </Styles.TBodyCellBolean>
-                            </Styles.TBodyCell>
-                          </>
-                        ))
+                        tableRow.includes(key) && (
+                          <TableCell
+                            ref={
+                              data?.results?.length === indexData + 1 &&
+                              index === 1
+                                ? lastRef
+                                : null
+                            }
+                            id={`${row.id}-${key}`}
+                            onClick={() =>
+                              header === "Note"
+                                ? navigate(`/notes/${row.id}`)
+                                : openModalDetails(row.id)
+                            }
+                            value={value}
+                            key={`${row.id}-${key}`}
+                            isExam={key === "exam"}
+                          />
+                        )
                     )}
                     {header === "Subject" && (
                       <Styles.TBodyCell
