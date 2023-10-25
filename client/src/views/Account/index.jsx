@@ -16,7 +16,7 @@ const Account = () => {
     <Styles.Wrapper>
       <Styles.Header>MyAccount</Styles.Header>
       {isLoading ? (
-        <Loader />
+        <Loader component={0} />
       ) : (
         <Styles.DetailsWrapper>
           {auth &&

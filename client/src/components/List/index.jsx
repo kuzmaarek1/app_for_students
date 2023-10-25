@@ -128,7 +128,7 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
       />
       {fetching && page == 1 ? (
         <Styles.LoaderAndErrorWrapper>
-          <Loader />
+          <Loader component={0} />
         </Styles.LoaderAndErrorWrapper>
       ) : data?.results?.length === 0 || !data?.results ? (
         <Styles.LoaderAndErrorWrapper>
@@ -268,7 +268,11 @@ const List = ({ header, hook, endpoint, getEndpoint, searchEndpoint }) => {
           </Styles.TableWrapper>
         </Styles.TContainer>
       )}
-      {(fetchingData || fetchingData) && page !== 1 && <div>Loading More</div>}
+      {(fetchingData || fetchingData) && page !== 1 && (
+        <Styles.LoaderMore>
+          <Loader component={1} />
+        </Styles.LoaderMore>
+      )}
       <ModalForm
         header={header}
         modalIsOpen={modalIsOpenFormAdd}

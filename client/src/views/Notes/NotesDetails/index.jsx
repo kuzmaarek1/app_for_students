@@ -71,7 +71,7 @@ const NotesDetails = () => {
 
       {isFetching && !data ? (
         <Styles.LoaderWrapper>
-          <Loader />
+          <Loader component={0} />
         </Styles.LoaderWrapper>
       ) : (
         <>
