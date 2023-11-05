@@ -4,14 +4,25 @@ import { useAuth } from "hooks/useAuth";
 import { useSubjects } from "hooks/useSubjects";
 import { useGetUserQuery } from "reducers/authApiSlice";
 import { Button, Loader, ModalForm } from "components";
+import { UserAuthWithSocialMedia } from "context/AuthContext";
 import * as Styles from "./styles";
 
 const Account = () => {
   const authHook = useAuth();
   const subject = useSubjects();
+  const { userSocialMedia, logOut } = UserAuthWithSocialMedia();
   const { currentSubject } = useSelector((state) => state.subject);
   const { data: auth, isLoading } = useGetUserQuery();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const handleSignOut = async () => {
+    try {
+      await logOut();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Styles.Wrapper>
       <Styles.Header>MyAccount</Styles.Header>
@@ -48,7 +59,11 @@ const Account = () => {
           </>
         )}
         <Button
-          onClick={() => authHook.handleLogOut()}
+          onClick={() =>
+            !userSocialMedia?.accessToken
+              ? authHook.handleLogOut()
+              : handleSignOut()
+          }
           color="red"
           height="40px"
           name="Log out"

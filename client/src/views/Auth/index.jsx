@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { loginForm, registerForm, defaultAuthValues } from "constans";
 import { useAuth } from "hooks/useAuth";
+import { GoogleButton } from "react-google-button";
+import { UserAuthWithSocialMedia } from "context/AuthContext";
 import { Button, Field } from "components";
 import * as Styles from "./styles";
 
@@ -14,8 +16,17 @@ const Auth = () => {
     formState: { errors },
   } = useForm();
   const auth = useAuth();
+  const { googleSignIn, userSocialMedia } = UserAuthWithSocialMedia();
   const [isLogin, setIsLogin] = useState(true);
   const [dataform, setFormData] = useState(loginForm);
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const switchMode = () => {
     reset(defaultAuthValues);
@@ -79,6 +90,7 @@ const Auth = () => {
           />
         </Styles.ButtonWrapper>
       </Styles.WrapperAnimate>
+      <GoogleButton onClick={handleGoogleSignIn} />
     </Styles.Wrapper>
   );
 };
