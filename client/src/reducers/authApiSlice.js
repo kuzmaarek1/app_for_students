@@ -10,12 +10,20 @@ export const authApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Auth"],
     }),
+    signInWithSocialMedia: builder.mutation({
+      query: (credentials) => ({
+        url: "/api/signInWithSocialMedia/",
+        method: "POST",
+        body: credentials,
+      }),
+      invalidatesTags: ["AuthSocialMedia"],
+    }),
     getUser: builder.query({
       query: () => ({
         url: "/api/users/me/",
         method: "GET",
       }),
-      providesTags: ["Auth"],
+      providesTags: ["Auth", "AuthSocialMedia"],
     }),
     signUp: builder.mutation({
       query: (credentials) => ({
@@ -39,4 +47,5 @@ export const {
   useGetUserQuery,
   useSignUpMutation,
   useLogOutMutation,
+  useSignInWithSocialMediaMutation,
 } = authApiSlice;

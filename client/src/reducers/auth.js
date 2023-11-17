@@ -16,6 +16,12 @@ const authReducer = createSlice({
       }
     );
     builder.addMatcher(
+      authApiSlice.endpoints.signInWithSocialMedia.matchFulfilled,
+      (state, { payload }) => {
+        state.authData.auth_token = payload.auth_token;
+      }
+    );
+    builder.addMatcher(
       authApiSlice.endpoints.getUser.matchFulfilled,
       (state, { payload }) => {
         state.authData.user = payload;

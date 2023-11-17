@@ -6,14 +6,21 @@ import {
     signOut,
     onAuthStateChanged,
 } from 'firebase/auth';
+import { useDispatch } from "react-redux";
+import {
+    useSignInWithSocialMediaMutation,
+} from "reducers/authApiSlice";
+
 import { auth } from 'context/firebase';
+import { current } from '@reduxjs/toolkit';
 
 const AuthContext = createContext();
+
 
 export const AuthContextProvider = ({ children }) => {
     const [userSocialMedia, setUserSocialMedia] = useState({});
 
-    const googleSignIn = () => {
+    const googleSignIn = async () => {
         const provider = new GoogleAuthProvider();
         signInWithRedirect(auth, provider)
     };
@@ -26,6 +33,7 @@ export const AuthContextProvider = ({ children }) => {
 
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUserSocialMedia(currentUser);
+
         });
         return () => {
             unsubscribe();
