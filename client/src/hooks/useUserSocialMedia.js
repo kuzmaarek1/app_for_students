@@ -6,16 +6,9 @@ import {
     signOut,
     onAuthStateChanged,
 } from 'firebase/auth';
-import { useDispatch } from "react-redux";
-import {
-    useSignInWithSocialMediaMutation,
-} from "reducers/authApiSlice";
-
-import { auth } from 'context/firebase';
-import { current } from '@reduxjs/toolkit';
+import { auth } from 'constans/firebase';
 
 const AuthContext = createContext();
-
 
 export const AuthContextProvider = ({ children }) => {
     const [userSocialMedia, setUserSocialMedia] = useState({});
@@ -51,6 +44,6 @@ export const AuthContextProvider = ({ children }) => {
     );
 };
 
-export const UserAuthWithSocialMedia = () => {
+export const useUserSocialMedia = () => {
     return useContext(AuthContext);
 };

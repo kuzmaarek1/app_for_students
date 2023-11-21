@@ -7,7 +7,7 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "theme/constants";
 import { persistor, store } from "store";
 import GlobalStyle from "theme/GlobalStyle";
-import { AuthContextProvider } from "context/AuthContext";
+import { AuthContextProvider } from "hooks/useUserSocialMedia";
 import { Navbar } from "components";
 
 const AppProviders = ({ children }) => (

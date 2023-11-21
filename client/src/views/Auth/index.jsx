@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { loginForm, registerForm, defaultAuthValues } from "constans";
 import { useAuth } from "hooks/useAuth";
 import { GoogleButton } from "react-google-button";
-import { UserAuthWithSocialMedia } from "context/AuthContext";
+import { useUserSocialMedia } from "hooks/useUserSocialMedia";
 import { Button, Field } from "components";
 import * as Styles from "./styles";
 
@@ -16,7 +16,7 @@ const Auth = () => {
     formState: { errors },
   } = useForm();
   const auth = useAuth();
-  const { googleSignIn, userSocialMedia } = UserAuthWithSocialMedia();
+  const { googleSignIn, userSocialMedia } = useUserSocialMedia();
   const [isLogin, setIsLogin] = useState(true);
   const [dataform, setFormData] = useState(loginForm);
 

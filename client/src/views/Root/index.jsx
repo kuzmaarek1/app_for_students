@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { UserAuthWithSocialMedia } from "context/AuthContext";
+import { useUserSocialMedia } from "hooks/useUserSocialMedia";
 import { AuthenticatedApp, UnAuthenticatedApp } from "views";
 import { useSignInWithSocialMediaMutation } from "reducers/authApiSlice";
 import { Loader } from "components";
@@ -8,7 +8,7 @@ import * as Styles from "./styles";
 
 const Root = () => {
   const { auth_token } = useSelector((state) => state.auth.authData);
-  const { userSocialMedia, userSocialMediaStatus } = UserAuthWithSocialMedia();
+  const { userSocialMedia, userSocialMediaStatus } = useUserSocialMedia();
   const [signInWithSocialMedia] = useSignInWithSocialMediaMutation();
 
   useEffect(() => {

@@ -4,13 +4,13 @@ import { useAuth } from "hooks/useAuth";
 import { useSubjects } from "hooks/useSubjects";
 import { useGetUserQuery } from "reducers/authApiSlice";
 import { Button, Loader, ModalForm } from "components";
-import { UserAuthWithSocialMedia } from "context/AuthContext";
+import { useUserSocialMedia } from "hooks/useUserSocialMedia";
 import * as Styles from "./styles";
 
 const Account = () => {
   const authHook = useAuth();
   const subject = useSubjects();
-  const { userSocialMedia, logOut } = UserAuthWithSocialMedia();
+  const { userSocialMedia, logOut } = useUserSocialMedia();
   const { currentSubject } = useSelector((state) => state.subject);
   const { data: auth, isLoading } = useGetUserQuery();
   const [modalIsOpen, setModalIsOpen] = useState(false);
