@@ -14,13 +14,14 @@ const Root = () => {
 
   useEffect(() => {
     if (userSocialMedia?.accessToken) {
-      const { displayName, uid, email } = userSocialMedia;
+      const { displayName, uid, email, accessToken } = userSocialMedia;
       let [firstName, lastName] = displayName.split(" ");
       const formData = {
         firstName: firstName,
         lastName: lastName,
         uid: uid,
         email: email,
+        token: accessToken,
       };
       signInWithSocialMedia(formData);
     }

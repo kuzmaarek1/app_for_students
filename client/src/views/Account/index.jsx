@@ -18,6 +18,7 @@ const Account = () => {
   const handleSignOut = async () => {
     try {
       await logOut();
+      authHook.handleLogOut();
     } catch (error) {
       console.log(error);
     }
