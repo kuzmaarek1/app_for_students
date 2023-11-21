@@ -35,10 +35,12 @@ def account_social_media(request):
     try:
         decoded_token = auth.verify_id_token(access_token)
         user_id = decoded_token["uid"]
-        user, created = User.objects.get_or_create(
-            username=username, first_name=first_name, last_name=last_name
-        )
-        token, created = Token.objects.get_or_create(user=user)
-        return Response({"auth_token": token.key})
+        if user_id == username:
+            user, created = User.objects.get_or_create(
+                username=username, first_name=first_name, last_name=last_name
+            )
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({"auth_token": token.key})
+        return Response({"Error": "User ID not used with token"})
     except:
-        return Response({"error": "error"})
+        return Response({"Error": "Error"})
