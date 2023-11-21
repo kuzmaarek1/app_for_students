@@ -19,9 +19,11 @@ const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
     const [userSocialMedia, setUserSocialMedia] = useState({});
+    const [userSocialMediaStatus, setUserSocialMediaStatus] = useState(true);
 
     const googleSignIn = async () => {
         const provider = new GoogleAuthProvider();
+        setUserSocialMediaStatus(true);
         signInWithRedirect(auth, provider)
     };
 
@@ -32,6 +34,7 @@ export const AuthContextProvider = ({ children }) => {
     useEffect(() => {
 
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUserSocialMediaStatus(false);
             setUserSocialMedia(currentUser);
 
         });
@@ -42,7 +45,7 @@ export const AuthContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ googleSignIn, logOut, userSocialMedia }}>
+        <AuthContext.Provider value={{ googleSignIn, logOut, userSocialMedia, userSocialMediaStatus }}>
             {children}
         </AuthContext.Provider>
     );

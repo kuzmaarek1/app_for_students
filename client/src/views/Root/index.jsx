@@ -2,14 +2,13 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { UserAuthWithSocialMedia } from "context/AuthContext";
 import { AuthenticatedApp, UnAuthenticatedApp } from "views";
-import { useDispatch } from "react-redux";
 import { useSignInWithSocialMediaMutation } from "reducers/authApiSlice";
+import { Loader } from "components";
+import * as Styles from "./styles";
 
 const Root = () => {
   const { auth_token } = useSelector((state) => state.auth.authData);
-  const { userSocialMedia } = UserAuthWithSocialMedia();
-  console.log(userSocialMedia);
-  const dispatch = useDispatch();
+  const { userSocialMedia, userSocialMediaStatus } = UserAuthWithSocialMedia();
   const [signInWithSocialMedia] = useSignInWithSocialMediaMutation();
 
   useEffect(() => {
@@ -27,7 +26,11 @@ const Root = () => {
     }
   }, [userSocialMedia]);
 
-  return auth_token || userSocialMedia?.accessToken ? (
+  return userSocialMediaStatus === true ? (
+    <Styles.LoaderWrapper>
+      <Loader component={0} />
+    </Styles.LoaderWrapper>
+  ) : auth_token ? (
     <AuthenticatedApp />
   ) : (
     <UnAuthenticatedApp />

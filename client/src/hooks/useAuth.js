@@ -24,7 +24,6 @@ export const useAuth = () => {
   };
 
   const handleSignUp = async (formData) => {
-    console.log(formData)
     return await toastHook.handleDisplayBanner(
       signUp(formData),
       `Creating new user ${formData.username}`,
