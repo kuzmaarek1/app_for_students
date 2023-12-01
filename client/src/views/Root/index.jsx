@@ -12,6 +12,7 @@ const Root = () => {
   const [signInWithSocialMedia] = useSignInWithSocialMediaMutation();
 
   useEffect(() => {
+    console.log(userSocialMedia);
     if (userSocialMedia?.accessToken) {
       const { displayName, uid, email, accessToken } = userSocialMedia;
       let [firstName, lastName] = displayName.split(" ");

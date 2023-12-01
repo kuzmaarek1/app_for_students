@@ -5,6 +5,7 @@ import {
     signInWithRedirect,
     signOut,
     onAuthStateChanged,
+    FacebookAuthProvider
 } from 'firebase/auth';
 import { auth } from 'constans/firebase';
 
@@ -20,6 +21,13 @@ export const AuthContextProvider = ({ children }) => {
         signInWithRedirect(auth, provider)
     };
 
+    const facebookSignIn = async () => {
+        const provider = new FacebookAuthProvider();
+        setUserSocialMediaStatus(true);
+        signInWithRedirect(auth, provider).then((r) => console.log(r)).catch((e) => console.log(e))
+        console.log("facebook");
+    };
+
     const logOut = () => {
         signOut(auth)
     }
@@ -27,6 +35,7 @@ export const AuthContextProvider = ({ children }) => {
     useEffect(() => {
 
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            console.log(currentUser);
             setUserSocialMediaStatus(false);
             setUserSocialMedia(currentUser);
 
@@ -38,7 +47,7 @@ export const AuthContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ googleSignIn, logOut, userSocialMedia, userSocialMediaStatus }}>
+        <AuthContext.Provider value={{ googleSignIn, facebookSignIn, logOut, userSocialMedia, userSocialMediaStatus }}>
             {children}
         </AuthContext.Provider>
     );

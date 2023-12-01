@@ -16,13 +16,22 @@ const Auth = () => {
     formState: { errors },
   } = useForm();
   const auth = useAuth();
-  const { googleSignIn, userSocialMedia } = useUserSocialMedia();
+  const { googleSignIn, facebookSignIn, userSocialMedia } =
+    useUserSocialMedia();
   const [isLogin, setIsLogin] = useState(true);
   const [dataform, setFormData] = useState(loginForm);
 
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleFacebookSignIn = async () => {
+    try {
+      await facebookSignIn();
     } catch (error) {
       console.log(error);
     }
@@ -91,6 +100,7 @@ const Auth = () => {
         </Styles.ButtonWrapper>
       </Styles.WrapperAnimate>
       <GoogleButton onClick={handleGoogleSignIn} />
+      <div onClick={handleFacebookSignIn}>Facebook</div>
     </Styles.Wrapper>
   );
 };
