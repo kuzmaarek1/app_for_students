@@ -26,7 +26,8 @@ const Root = () => {
     }
   }, [userSocialMedia]);
 
-  return userSocialMediaStatus === true ? (
+  return userSocialMediaStatus === true ||
+    (userSocialMedia?.accessToken && !auth_token) ? (
     <Styles.LoaderWrapper>
       <Loader component={0} />
     </Styles.LoaderWrapper>
