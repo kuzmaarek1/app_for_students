@@ -1,6 +1,7 @@
 import { useContext, createContext, useEffect, useState } from 'react';
 import {
     GoogleAuthProvider,
+    GithubAuthProvider,
     signInWithPopup,
     signInWithRedirect,
     signOut,
@@ -18,14 +19,19 @@ export const AuthContextProvider = ({ children }) => {
     const googleSignIn = async () => {
         const provider = new GoogleAuthProvider();
         setUserSocialMediaStatus(true);
-        signInWithRedirect(auth, provider)
+        await signInWithRedirect(auth, provider)
     };
 
     const facebookSignIn = async () => {
         const provider = new FacebookAuthProvider();
         setUserSocialMediaStatus(true);
-        signInWithRedirect(auth, provider).then((r) => console.log(r)).catch((e) => console.log(e))
-        console.log("facebook");
+        await signInWithRedirect(auth, provider)
+    };
+
+    const githubSignIn = async () => {
+        const provider = new GithubAuthProvider();
+        setUserSocialMediaStatus(true);
+        await signInWithRedirect(auth, provider)
     };
 
     const logOut = () => {
@@ -35,7 +41,6 @@ export const AuthContextProvider = ({ children }) => {
     useEffect(() => {
 
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            console.log(currentUser);
             setUserSocialMediaStatus(false);
             setUserSocialMedia(currentUser);
 
@@ -47,7 +52,7 @@ export const AuthContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ googleSignIn, facebookSignIn, logOut, userSocialMedia, userSocialMediaStatus }}>
+        <AuthContext.Provider value={{ googleSignIn, facebookSignIn, githubSignIn, logOut, userSocialMedia, userSocialMediaStatus }}>
             {children}
         </AuthContext.Provider>
     );
