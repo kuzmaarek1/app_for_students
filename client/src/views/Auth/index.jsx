@@ -16,8 +16,13 @@ const Auth = () => {
     formState: { errors },
   } = useForm();
   const auth = useAuth();
-  const { googleSignIn, facebookSignIn, githubSignIn, userSocialMedia } =
-    useUserSocialMedia();
+  const {
+    googleSignIn,
+    facebookSignIn,
+    githubSignIn,
+    twitterSignIn,
+    userSocialMedia,
+  } = useUserSocialMedia();
   const [isLogin, setIsLogin] = useState(true);
   const [dataform, setFormData] = useState(loginForm);
 
@@ -40,6 +45,14 @@ const Auth = () => {
   const handleGithubSignIn = async () => {
     try {
       await githubSignIn();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleTwitterSignIn = async () => {
+    try {
+      await twitterSignIn();
     } catch (error) {
       console.log(error);
     }
@@ -110,6 +123,7 @@ const Auth = () => {
       <GoogleButton onClick={handleGoogleSignIn} />
       <div onClick={handleFacebookSignIn}>Facebook</div>
       <div onClick={handleGithubSignIn}>Github</div>
+      <div onClick={handleTwitterSignIn}>Twitter</div>
     </Styles.Wrapper>
   );
 };

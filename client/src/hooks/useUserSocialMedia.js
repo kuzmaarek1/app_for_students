@@ -2,6 +2,7 @@ import { useContext, createContext, useEffect, useState } from 'react';
 import {
     GoogleAuthProvider,
     GithubAuthProvider,
+    TwitterAuthProvider,
     signInWithPopup,
     signInWithRedirect,
     signOut,
@@ -34,6 +35,13 @@ export const AuthContextProvider = ({ children }) => {
         await signInWithRedirect(auth, provider)
     };
 
+
+    const twitterSignIn = async () => {
+        const provider = new TwitterAuthProvider();
+        setUserSocialMediaStatus(true);
+        await signInWithRedirect(auth, provider)
+    };
+
     const logOut = () => {
         signOut(auth)
     }
@@ -42,7 +50,12 @@ export const AuthContextProvider = ({ children }) => {
 
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUserSocialMediaStatus(false);
-            setUserSocialMedia(currentUser);
+            console.log(currentUser);
+            if (currentUser) {
+                setUserSocialMedia(currentUser);
+            } else {
+                setUserSocialMedia(null);
+            }
 
         });
         return () => {
@@ -52,7 +65,7 @@ export const AuthContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ googleSignIn, facebookSignIn, githubSignIn, logOut, userSocialMedia, userSocialMediaStatus }}>
+        <AuthContext.Provider value={{ googleSignIn, facebookSignIn, twitterSignIn, githubSignIn, logOut, userSocialMedia, userSocialMediaStatus }}>
             {children}
         </AuthContext.Provider>
     );

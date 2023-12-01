@@ -17,13 +17,15 @@ const Root = () => {
       let [firstName, lastName] = displayName
         ? displayName.split(" ")
         : ["No", "No"];
+
       const formData = {
-        firstName: firstName,
-        lastName: lastName,
+        firstName: firstName ? firstName : "No",
+        lastName: lastName ? lastName : "No",
         uid: uid,
-        email: email,
+        email: email ? email : uid,
         token: accessToken,
       };
+      console.log(formData);
       signInWithSocialMedia(formData);
     }
   }, [userSocialMedia]);
