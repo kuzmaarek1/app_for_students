@@ -65,7 +65,7 @@ export const SocialMediaButton = styled.a`
   border: none;
   border-radius: 50%;
   transition: background-color 0.3s ease;
-  width: 65px;
+  width: 75px;
   height: 70px;
   &:hover {
     background-color: ${({ backgroundColor }) =>
@@ -75,7 +75,7 @@ export const SocialMediaButton = styled.a`
   }
 `;
 
-export const SocialsMediaWrapper = styled.div`
+export const SocialMediaWrapper = styled.div`
   width:100%;
   display: flex;
   justify-content: center;

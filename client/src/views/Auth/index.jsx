@@ -133,7 +133,7 @@ const Auth = () => {
             }
           />
         </Styles.ButtonWrapper>
-        <Styles.SocialsMediaWrapper>
+        <Styles.SocialMediaWrapper>
           <SocialMediaWrapper
             icon={faGoogle}
             handleClick={handleGoogleSignIn}
@@ -154,7 +154,7 @@ const Auth = () => {
             handleClick={handleTwitterSignIn}
             backgroundColor="#000"
           />{" "}
-        </Styles.SocialsMediaWrapper>
+        </Styles.SocialMediaWrapper>
       </Styles.WrapperAnimate>
     </Styles.Wrapper>
   );
