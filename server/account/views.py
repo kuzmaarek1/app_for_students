@@ -36,6 +36,7 @@ def account_social_media(request):
         decoded_token = auth.verify_id_token(access_token)
         user_id = decoded_token["uid"]
         if user_id == username:
+            print("Warunek 1")
             user, created = User.objects.get_or_create(
                 username=username, first_name=first_name, last_name=last_name
             )

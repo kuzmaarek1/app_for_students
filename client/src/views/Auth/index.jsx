@@ -5,7 +5,21 @@ import { useAuth } from "hooks/useAuth";
 import { GoogleButton } from "react-google-button";
 import { useUserSocialMedia } from "hooks/useUserSocialMedia";
 import { Button, Field } from "components";
+import {
+  faFacebookF,
+  faGoogle,
+  faGithub,
+  faXTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 import * as Styles from "./styles";
+
+const SocialMediaWrapper = ({ icon, handleClick, backgroundColor }) => {
+  return (
+    <Styles.SocialMediaButton backgroundColor={backgroundColor}>
+      <Styles.Icon icon={icon} onClick={handleClick} />
+    </Styles.SocialMediaButton>
+  );
+};
 
 const Auth = () => {
   const {
@@ -119,11 +133,29 @@ const Auth = () => {
             }
           />
         </Styles.ButtonWrapper>
+        <Styles.SocialsMediaWrapper>
+          <SocialMediaWrapper
+            icon={faGoogle}
+            handleClick={handleGoogleSignIn}
+            backgroundColor="#DB4437"
+          />
+          <SocialMediaWrapper
+            icon={faFacebookF}
+            handleClick={handleFacebookSignIn}
+            backgroundColor="#1877f2"
+          />
+          <SocialMediaWrapper
+            icon={faGithub}
+            handleClick={handleGithubSignIn}
+            backgroundColor="#000"
+          />
+          <SocialMediaWrapper
+            icon={faXTwitter}
+            handleClick={handleTwitterSignIn}
+            backgroundColor="#000"
+          />{" "}
+        </Styles.SocialsMediaWrapper>
       </Styles.WrapperAnimate>
-      <GoogleButton onClick={handleGoogleSignIn} />
-      <div onClick={handleFacebookSignIn}>Facebook</div>
-      <div onClick={handleGithubSignIn}>Github</div>
-      <div onClick={handleTwitterSignIn}>Twitter</div>
     </Styles.Wrapper>
   );
 };
