@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://app-for-students.vercel.app/",
+  baseUrl: "https://akuzma503.pythonanywhere.com/",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth?.authData?.auth_token;
     if (token) {

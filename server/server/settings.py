@@ -32,7 +32,7 @@ SECRET_KEY = "django-insecure-vx9koq96f8v0^c09gkpkhbdlg-z=!-o+w()@^7hpxldn!r34mj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".vercel.app"]
+ALLOWED_HOSTS = [".vercel.app", "127.0.0.1:8000"]
 
 CORS_ALLOWED_ORIGINS = [
     "https://beautiful-smakager-186671.netlify.app",
