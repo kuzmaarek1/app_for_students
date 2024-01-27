@@ -20,14 +20,15 @@ from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('account.urls')),
-    path('api/', include('djoser.urls')),
-    path('api/', include('djoser.urls.authtoken')),
-    path('api/', include('subject.urls')),
-    path('api/', include('note.urls')),
-    path('api/', include('deadline.urls')),
-    path('api/', include('todolist.urls'))
-]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    path("admin/", admin.site.urls),
+    path("api/", include("account.urls")),
+    path("api/", include("djoser.urls")),
+    path("api/", include("djoser.urls.authtoken")),
+    path("api/", include("subject.urls")),
+    path("api/", include("note.urls")),
+    path("api/", include("deadline.urls")),
+    path("api/", include("todolist.urls")),
+    path("api/", include("account.urls")),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-urlpatterns+=staticfiles_urlpatterns()
+urlpatterns += staticfiles_urlpatterns()

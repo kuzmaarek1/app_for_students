@@ -1,4 +1,6 @@
 import styled, { css } from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebookF } from "@fortawesome/free-brands-svg-icons";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -46,4 +48,39 @@ export const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 2.5vh;
+`;
+
+export const Icon = styled(FontAwesomeIcon)`
+  width: 35px;
+  height: 40px;
+`;
+
+export const SocialMediaButton = styled.a`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${({ theme }) => theme.colors.grey};
+  color: ${({ theme }) => theme.colors.darkGrey};
+  text-decoration: none;
+  border: none;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  width: 75px;
+  height: 70px;
+  &:hover {
+    background-color: ${({ backgroundColor }) =>
+      backgroundColor ? backgroundColor : ""};
+    color: white;
+    cursor: pointer;
+  }
+`;
+
+export const SocialMediaWrapper = styled.div`
+  width:100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:15px;
+  margin-top:15px;
+  }
 `;
