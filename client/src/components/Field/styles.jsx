@@ -1,12 +1,23 @@
 import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
-  width: ${({ headerList }) => (headerList ? "100%" : "90vw")};
+  width: ${({ headerList, width, SmWidth }) =>
+    width ? width : headerList ? "100%" : "90vw"};
   margin: 10px;
   margin-bottom: ${({ description, note }) =>
     description ? (note ? "340px" : "60px") : "10px"};
   height: 50px;
   position: relative;
+  ${({ LgWidth }) =>
+    LgWidth &&
+    css`@media (max-width: 1040px) {
+    width: ${LgWidth};
+  }}`}
+  ${({ SmWidth }) =>
+    SmWidth &&
+    css`@media (max-width: 640px) {
+    width: ${SmWidth};
+  }}`}
 `;
 
 export const Input = styled.input`

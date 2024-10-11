@@ -9,6 +9,9 @@ const Field = ({
   register,
   required,
   validate,
+  width,
+  SmWidth,
+  LgWidth,
   headerList,
   headerName,
   header,
@@ -27,6 +30,9 @@ const Field = ({
       description={name === "description"}
       note={header === "Note"}
       headerList={headerList}
+      width={width}
+      LgWidth={LgWidth}
+      SmWidth={SmWidth}
     >
       <Styles.Input
         as={inputOrTextarea}

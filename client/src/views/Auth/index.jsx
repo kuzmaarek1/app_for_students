@@ -83,48 +83,55 @@ const Auth = () => {
 
   return (
     <Styles.Wrapper>
-      <Styles.WrapperAnimate isLogin={isLogin}>
-        <Styles.Header isLogin={isLogin}>
-          {isLogin ? "Log In" : "Sign Up"}
-        </Styles.Header>
-        <Styles.Form
-          onSubmit={
-            isLogin
-              ? handleSubmit(auth.handleSiginIn)
-              : handleSubmit(async (register) => {
-                  if ("first_name" in register)
-                    await auth.handleSignUp(register);
-                  reset();
-                  setIsLogin(true);
-                })
-          }
-        >
-          {dataform.map((props, index) => (
-            <Field
-              key={index}
-              {...props}
-              watch={watch}
-              errors={!!errors[props.name]}
-              register={register}
-              required={true}
-              validate={
-                props.name === "re_password" ? watch("password") : false
-              }
-            />
-          ))}
-          <Styles.ButtonWrapper>
-            <Button
-              width="300px"
-              height="40px"
-              name={isLogin ? " Log In" : "Sign Up"}
-            />
-          </Styles.ButtonWrapper>
-        </Styles.Form>
-        <Styles.ButtonWrapper>
+      <Styles.ContainerBook angle={45} size={25}></Styles.ContainerBook>
+      <Styles.WrapperForm>
+        <Styles.WrapperAnimate isLogin={isLogin}>
+          <Styles.Header isLogin={isLogin}>
+            {isLogin ? "Log In" : "Sign Up"}
+          </Styles.Header>
+          <Styles.Form
+            onSubmit={
+              isLogin
+                ? handleSubmit(auth.handleSiginIn)
+                : handleSubmit(async (register) => {
+                    if ("first_name" in register)
+                      await auth.handleSignUp(register);
+                    reset();
+                    setIsLogin(true);
+                  })
+            }
+          >
+            {dataform.map((props, index) => (
+              <Field
+                key={index}
+                {...props}
+                watch={watch}
+                errors={!!errors[props.name]}
+                register={register}
+                required={true}
+                validate={
+                  props.name === "re_password" ? watch("password") : false
+                }
+                width="25vw"
+                LgWidth="40vw"
+                SmWidth="300px"
+              />
+            ))}
+            <Styles.ButtonWrapper>
+              <Button
+                key={isLogin}
+                width="200px"
+                height="35px"
+                name={isLogin ? " Log In" : "Sign Up"}
+              />
+            </Styles.ButtonWrapper>
+          </Styles.Form>
           <Button
+            key={isLogin}
             color="red"
-            width="400px"
-            height="40px"
+            width="300px"
+            height="30px"
+            fontSize="11px"
             onClick={switchMode}
             name={
               isLogin
@@ -132,30 +139,30 @@ const Auth = () => {
                 : "Already have an account? Log In"
             }
           />
-        </Styles.ButtonWrapper>
-        <Styles.SocialMediaWrapper>
-          <SocialMediaWrapper
-            icon={faGoogle}
-            handleClick={handleGoogleSignIn}
-            backgroundColor="#DB4437"
-          />
-          <SocialMediaWrapper
-            icon={faFacebookF}
-            handleClick={handleFacebookSignIn}
-            backgroundColor="#1877f2"
-          />
-          <SocialMediaWrapper
-            icon={faGithub}
-            handleClick={handleGithubSignIn}
-            backgroundColor="#000"
-          />
-          <SocialMediaWrapper
-            icon={faXTwitter}
-            handleClick={handleTwitterSignIn}
-            backgroundColor="#000"
-          />{" "}
-        </Styles.SocialMediaWrapper>
-      </Styles.WrapperAnimate>
+          <Styles.SocialMediaWrapper>
+            <SocialMediaWrapper
+              icon={faGoogle}
+              handleClick={handleGoogleSignIn}
+              backgroundColor="#DB4437"
+            />
+            <SocialMediaWrapper
+              icon={faFacebookF}
+              handleClick={handleFacebookSignIn}
+              backgroundColor="#1877f2"
+            />
+            <SocialMediaWrapper
+              icon={faGithub}
+              handleClick={handleGithubSignIn}
+              backgroundColor="#000"
+            />
+            <SocialMediaWrapper
+              icon={faXTwitter}
+              handleClick={handleTwitterSignIn}
+              backgroundColor="#000"
+            />
+          </Styles.SocialMediaWrapper>
+        </Styles.WrapperAnimate>
+      </Styles.WrapperForm>
     </Styles.Wrapper>
   );
 };

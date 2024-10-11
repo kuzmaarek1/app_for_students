@@ -14,7 +14,7 @@ export const Button = styled.button`
     color === "red" ? theme.colors.red : theme.colors.blue};
   background: ${({ color, theme }) =>
     color === "red" ? theme.colors.lightRed : theme.colors.lightBlue};
-  font-size: 15px;
+  font-size: ${({ fontSize }) => (fontSize ? fontSize : "15px")};
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -35,17 +35,24 @@ export const Button = styled.button`
     transition-property: all;
     transition-timing-function: ease-in;
     transition-duration: 300ms;
+    transform: scaleX(0);
+    width: 100%;
+    transform-origin: left;
   }
   &:hover {
     color: #fff;
     letter-spacing: 0.2em;
   }
   &:hover:after {
-    width: 100%;
+    transform: scaleX(1);
   }
 `;
 
 export const Span = styled.span`
   position: relative;
   z-index: 2;
+  padding-left: 0.1em;
+  &:hover {
+    padding-left: 0.2em;
+  }
 `;
